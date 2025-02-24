@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestfulController {
 
-  @GetMapping("/home")
+  @GetMapping("/api/home")
   public String sayHello() {
-    return "home";
+    return "Welcome to the Banking System API";
   }
 }
