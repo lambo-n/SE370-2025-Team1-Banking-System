@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BankingSystemController {
+public class RestfulController {
 
-  @GetMapping("/BankingSystemWebApp")
+  @GetMapping("/api/home")
   public String sayHello() {
-    return "This is our banking system web app";
+    return "Welcome to the Banking System API";
   }
 }
