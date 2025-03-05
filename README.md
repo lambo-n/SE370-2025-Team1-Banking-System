@@ -5,4 +5,7 @@ This project is written mostly in Java, implementing a RESTful API and utilizing
 This can be best achieved using a Sprint Boot project, with the project type being Maven or Gradle (Maven sounds popular due to simplicity)
 
 Group Members:
-Nathan Lam, Dominic Allen
+- Nathan Lam
+- Dominic Allen
+- Tre Matthews
+- Carlie Gonzalez
