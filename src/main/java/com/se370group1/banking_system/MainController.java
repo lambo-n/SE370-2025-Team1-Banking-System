@@ -7,7 +7,22 @@ import org.springframework.stereotype.Controller;
 public class MainController {
 
   @GetMapping("/")
+  public String redirectToHome() {
+    return "redirect:/home";
+  }
+
+  @GetMapping("/home")
   public String home() {
-    return "frontEnd";
+    return "home";
+  }
+
+  @GetMapping("/signup")
+  public String signup() {
+    return "signup";
+  }
+
+  @GetMapping("/login")
+  public String login() {
+    return "login";
   }
 }
