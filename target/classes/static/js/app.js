@@ -1,6 +1,6 @@
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
-    // Get templates
+    //get templates
     const templates = {
         frontpage: document.getElementById('frontpage-template').innerHTML,
         dashboard: document.getElementById('dashboard-template').innerHTML,
@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
         profile: document.getElementById('profile-template').innerHTML
     };
     
-    // Create router instance
+    //create router instance
     const appElement = document.getElementById('app');
     const router = new Router(appElement);
     
-    // Define routes
+    //define routes
     router.addRoute('frontpage', () => {
         appElement.innerHTML = templates.frontpage;
     });
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appElement.innerHTML = templates.profile;
     });
     
-    // Initialize the router
+    //initialize the router
     router.init();
 
 });
@@ -50,13 +50,13 @@ function callBackgroundColorChangeEndpoint() {
         if (!response.ok) {
             throw new Error('Failed to fetch the random color');
         }
-        return response.text(); // Parse the response as plain text (hex color)
+        return response.text();
     })
     .then(hexColor => {
 
         const color = `#${hexColor}`;
         
-        // Apply the color to the website's background
+        //apply color to background
         document.body.style.backgroundColor = color;
         console.log(`Background color changed to: ${color}`);
     })
