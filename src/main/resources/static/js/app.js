@@ -16,75 +16,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // Define routes
     router.addRoute('frontpage', () => {
         appElement.innerHTML = templates.frontpage;
-        // Additional logic for frontpage
     });
 
     router.addRoute('dashboard', () => {
         appElement.innerHTML = templates.dashboard;
-        // Additional logic for dashboard
     });
     
     router.addRoute('accounts', () => {
         appElement.innerHTML = templates.accounts;
-        // Fetch accounts from API
-        fetchAccounts();
     });
     
     router.addRoute('transactions', () => {
         appElement.innerHTML = templates.transactions;
-        // Fetch transactions from API
-        fetchTransactions();
     });
     
     router.addRoute('profile', () => {
         appElement.innerHTML = templates.profile;
-        // Load profile data
-        loadProfileData();
     });
     
     // Initialize the router
     router.init();
-    
-    // API functions
-    function fetchAccounts() {
-        fetch('/api/accounts')
-            .then(response => response.json())
-            .then(accounts => {
-                const accountsList = document.getElementById('accounts-list');
-                accountsList.innerHTML = '';
-                
-                accounts.forEach(account => {
-                    const accountElement = document.createElement('div');
-                    accountElement.className = 'account-item';
-                    accountElement.innerHTML = `
-                        <h3>${account.name}</h3>
-                        <p>Balance: $${account.balance.toFixed(2)}</p>
-                        <button data-account-id="${account.id}" class="view-details-btn">View Details</button>
-                    `;
-                    accountsList.appendChild(accountElement);
-                });
-                
-                // Add event listeners for account details
-                document.querySelectorAll('.view-details-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const accountId = e.target.dataset.accountId;
-                        showAccountDetails(accountId);
-                    });
-                });
-            })
-            .catch(error => console.error('Error fetching accounts:', error));
-    }
-    
-    // More functions for other API calls
-    function fetchTransactions() {
-        // Similar to fetchAccounts
-    }
-    
-    function loadProfileData() {
-        // Fetch and display profile data
-    }
-    
-    function showAccountDetails(accountId) {
-        // Show details for a specific account
-    }
+
 });
+
+function callBackgroundColorChangeEndpoint() {
+    fetch('/api/user/changeColor', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch the random color');
+        }
+        return response.text(); // Parse the response as plain text (hex color)
+    })
+    .then(hexColor => {
+
+        const color = `#${hexColor}`;
+        
+        // Apply the color to the website's background
+        document.body.style.backgroundColor = color;
+        console.log(`Background color changed to: ${color}`);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
