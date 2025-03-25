@@ -1,6 +1,6 @@
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
-    //get templates
+    //templates
     const templates = {
         frontpage: document.getElementById('frontpage-template').innerHTML,
         dashboard: document.getElementById('dashboard-template').innerHTML,
@@ -50,13 +50,13 @@ function callBackgroundColorChangeEndpoint() {
         if (!response.ok) {
             throw new Error('Failed to fetch the random color');
         }
-        return response.text();
+        return response.text(); // Parse the response as plain text (hex color)
     })
     .then(hexColor => {
 
         const color = `#${hexColor}`;
         
-        //apply color to background
+        //apply color to website background
         document.body.style.backgroundColor = color;
         console.log(`Background color changed to: ${color}`);
     })
