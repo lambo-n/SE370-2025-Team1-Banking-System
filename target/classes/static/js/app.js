@@ -64,3 +64,12 @@ function callBackgroundColorChangeEndpoint() {
         console.error('Error:', error);
     });
 }
+
+function callSaveNewUserEndpoint() {
+    fetch('/api/user/saveNewUser'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+}
