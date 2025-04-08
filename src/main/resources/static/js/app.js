@@ -1,21 +1,31 @@
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
-    // Get templates
+    //templates
     const templates = {
         frontpage: document.getElementById('frontpage-template').innerHTML,
+        login: document.getElementById('login-template').innerHTML,
+        signup: document.getElementById('signup-template').innerHTML,
         dashboard: document.getElementById('dashboard-template').innerHTML,
         accounts: document.getElementById('accounts-template').innerHTML,
         transactions: document.getElementById('transactions-template').innerHTML,
         profile: document.getElementById('profile-template').innerHTML
     };
     
-    // Create router instance
+    //create router instance
     const appElement = document.getElementById('app');
     const router = new Router(appElement);
     
-    // Define routes
+    //define routes
     router.addRoute('frontpage', () => {
         appElement.innerHTML = templates.frontpage;
+    });
+
+    router.addRoute('login', () => {
+        appElement.innerHTML = templates.login;
+    });
+
+    router.addRoute('signup', () => {
+        appElement.innerHTML = templates.signup;
     });
 
     router.addRoute('dashboard', () => {
@@ -34,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appElement.innerHTML = templates.profile;
     });
     
-    // Initialize the router
+    //initialize the router
     router.init();
 
 });
@@ -56,11 +66,27 @@ function callBackgroundColorChangeEndpoint() {
 
         const color = `#${hexColor}`;
         
-        // Apply the color to the website's background
+        //apply color to website background
         document.body.style.backgroundColor = color;
         console.log(`Background color changed to: ${color}`);
     })
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+function callSaveNewUserEndpoint() {
+    fetch('/api/user/saveNewUser'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+}
+
+function callLogInUserEndpoint(button) {
+    console.log("login endpoint called")
+    const link = button.nextElementSibling;
+    link.href = `#${link.dataset.page}`;
+    console.log(link.href);
 }
