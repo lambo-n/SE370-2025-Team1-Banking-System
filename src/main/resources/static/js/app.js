@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //templates
     const templates = {
         frontpage: document.getElementById('frontpage-template').innerHTML,
+        login: document.getElementById('login-template').innerHTML,
+        signup: document.getElementById('signup-template').innerHTML,
         dashboard: document.getElementById('dashboard-template').innerHTML,
         accounts: document.getElementById('accounts-template').innerHTML,
         transactions: document.getElementById('transactions-template').innerHTML,
@@ -16,6 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     //define routes
     router.addRoute('frontpage', () => {
         appElement.innerHTML = templates.frontpage;
+    });
+
+    router.addRoute('login', () => {
+        appElement.innerHTML = templates.login;
+    });
+
+    router.addRoute('signup', () => {
+        appElement.innerHTML = templates.signup;
     });
 
     router.addRoute('dashboard', () => {
@@ -72,4 +82,11 @@ function callSaveNewUserEndpoint() {
             'Content-Type': 'application/json'
         }
     }
+}
+
+function callLogInUserEndpoint(button) {
+    console.log("login endpoint called")
+    const link = button.nextElementSibling;
+    link.href = `#${link.dataset.page}`;
+    console.log(link.href);
 }

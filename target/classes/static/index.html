@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--Links google fonts to our website to allow for font styling-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!--<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">-->
   <link rel="stylesheet" href="/css/bankingstyle.css">
 </head>
 <body>
@@ -24,14 +24,39 @@
             <h1>Front Page</h1>
             <nav>
               <ul>
-                <li><a href='#' data-page="dashboard">Sign in</a></li>
+                <li><a href='#' data-page="login">Log in</a></li>
+                <li><a href='#' data-page="signup"> Create an Account</a></li>
               </ul>
           </nav>
-          <button id="generic-button" onclick="callBackgroundColorChangeEndpoint()">Click Me</button>
-          <button id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
+          <button id="color-change-button" onclick="callBackgroundColorChangeEndpoint()">Click Me</button>
         </div>
-        <!-- Sign Up -->
-        <!-- Log In-->
+
+        <!-- Sign Up Template-->
+        <div id="signup-template">
+          <h1>Sign Up to Create Your Account</h1>
+          <button id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
+          <nav>
+            <ul>
+              <li><a href='#' data-page="login">Already have an account? Log In here!</a></li>
+              <li><a href='#' data-page="frontpage"> Back to Front Page</a></li>
+            </ul>
+        </nav>
+        </div>
+
+        <!-- Log In Template-->
+        <div id="login-template">
+          <h1>Log In to Your Account</h1>
+          <nav>
+            <ul>
+              <button onclick="callLogInUserEndpoint(this)">Log In</button>
+              <a href="#" id="pageLink" data-page="dashboard"></a>
+  
+            
+              <li><a href='#' data-page="signup">Don't have an account? Create one here!</a></li>
+              <li><a href='#' data-page="frontpage"> Back to Front Page</a></li>
+            </ul>
+        </nav>
+        </div>
 
         <!-- dashboard template-->
         <div id="dashboard-template">

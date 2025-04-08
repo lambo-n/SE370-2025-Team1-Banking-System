@@ -17,11 +17,26 @@ public class UserService {
     }
 
     public UserDTO saveNewUser(String userID, String username, String password) {
-        User newUser = new User(userID, username, password);
-        userRepository.save(newUser);
+        
+        Boolean userAlreadyExists = CheckIfUserExists(userID, username);
+        
+        if (userAlreadyExists)
+        {
+            return null;
+        }
+        else
+        {
+            User newUser = new User(userID, username, password);
+            //userRepository.save(newUser);
+    
+            UserDTO savedUser = new UserDTO(newUser);
+            return savedUser;
+        }
+    }
 
-        UserDTO savedUser = new UserDTO(newUser);
-        return savedUser;
+    public Boolean CheckIfUserExists(String userID, String username)
+    {
+        return true;
     }
 
     public String ChangeBackgroundColor() {

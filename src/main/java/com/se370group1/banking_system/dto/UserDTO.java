@@ -1,7 +1,5 @@
 package com.se370group1.banking_system.dto;
 
-import org.springframework.stereotype.Component;
-
 import com.se370group1.banking_system.model.User;
 
 public class UserDTO {

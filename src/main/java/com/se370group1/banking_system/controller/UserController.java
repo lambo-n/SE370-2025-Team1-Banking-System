@@ -23,8 +23,22 @@ public class UserController {
 
     @GetMapping("/saveNewUser")
     public void SaveNewUser(){
-        System.out.println("controller called");
+        System.out.println("save new user controller called");
         UserDTO newUser = userService.saveNewUser("1", "test", "password");
-        System.out.println(newUser.getUsername() + " saved");
+        
+        if(newUser == null)
+        {
+            System.out.println("Username taken. Please choose a different one.");
+        }
+        else
+        {
+            System.out.println(newUser.getUsername() + " saved");
+        }
+        
+    }
+
+    @GetMapping("/logInUser")
+    public void LogInUser() {
+        System.out.println("sign in user called");
     }
 }
