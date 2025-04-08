@@ -77,11 +77,13 @@ function callBackgroundColorChangeEndpoint() {
 
 function callSaveNewUserEndpoint() {
     fetch('/api/user/saveNewUser'), {
+        
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         }
     }
+    console.log("save new user endpoint called");
 }
 
 function callLogInUserEndpoint(button) {

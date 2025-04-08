@@ -10,4 +10,5 @@ import com.se370group1.banking_system.model.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String>{
     List<User> findByUserID(String userID);
+
 }
