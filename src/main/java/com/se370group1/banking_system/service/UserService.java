@@ -42,7 +42,6 @@ public class UserService {
     public String ChangeBackgroundColor() {
         int randomColor = (int) (Math.random() * 16777215);
         String hexColor = Integer.toHexString(randomColor);
-        
         return hexColor;    
     }
 }

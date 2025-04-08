@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--Links google fonts to our website to allow for font styling-->
-  <!--<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">-->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/bankingstyle.css">
 </head>
 <body>
@@ -33,8 +33,19 @@
 
         <!-- Sign Up Template-->
         <div id="signup-template">
-          <h1>Sign Up to Create Your Account</h1>
-          <button id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
+          <h1>Sign Up to Create Your Account!</h1>
+          <hr>
+          <div class="">
+            <form>
+              <label for="username">Username</label>
+              <input type="text" placeholder="Enter username" name="username" required>
+
+              <label for="password">Password</label>
+              <input type="text" placeholder="Enter password" name="password" required>
+              <button type="submit" id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
+            </form>
+          </div>
+          
           <nav>
             <ul>
               <li><a href='#' data-page="login">Already have an account? Log In here!</a></li>
