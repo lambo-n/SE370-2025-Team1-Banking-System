@@ -35,13 +35,13 @@
         <div id="signup-template">
           <h1>Sign Up to Create Your Account!</h1>
           <hr>
-          <div class="">
+          <div class="sign-up-form">
             <form>
               <label for="username">Username</label>
               <input type="text" placeholder="Enter username" name="username" required>
-
+              <br>
               <label for="password">Password</label>
-              <input type="text" placeholder="Enter password" name="password" required>
+              <input type="password" placeholder="Enter password" name="password" required>
               <button type="submit" id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
             </form>
           </div>
@@ -57,13 +57,21 @@
         <!-- Log In Template-->
         <div id="login-template">
           <h1>Log In to Your Account</h1>
+          <div class="login-form">
+            <form>
+              <label for="usrname">Username</label>
+              <input type="text" placeholder="Enter username" name="usrname" required>
+              <br>
+              <label for="pswrd">Password</label>
+              <input type="password" placeholder="Enter password" name="pswrd" required>
+              <button type="submit" onclick="callLogInUserEndpoint(this)">Log In</button>
+            </form>
+          </div>
           <nav>
             <ul>
-              <button onclick="callLogInUserEndpoint(this)">Log In</button>
               <a href="#" id="pageLink" data-page="dashboard"></a>
-  
-            
-              <li><a href='#' data-page="signup">Don't have an account? Create one here!</a></li>
+
+              <li>Don't have an account? Create one<a href='#' data-page="signup"> <b>here!</b></a></li>
               <li><a href='#' data-page="frontpage"> Back to Front Page</a></li>
             </ul>
         </nav>
@@ -114,6 +122,9 @@
                 <li><a href='#' data-page="dashboard">Dashboard</a></li>
               </ul>
           </nav>
+          <div class="profile-info">
+
+          </div>
         </div>
 
 
