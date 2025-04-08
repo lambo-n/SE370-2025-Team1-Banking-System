@@ -11,4 +11,7 @@ public class BankingSystemApplication {
 	}
 
 }
-	
+/*
+To run program, type 'localhost:8080' into your web browser
+(firefox works best)
+ */
