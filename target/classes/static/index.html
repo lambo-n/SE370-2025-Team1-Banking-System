@@ -8,7 +8,7 @@
   <!--<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">-->
-  <link rel="stylesheet" href="/css/bankingstyle.css">
+  <link rel="stylesheet" href="/target/classes/static/css/bankingstyle.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -21,7 +21,7 @@
     <div id="templates" style="display: none;">
         <!-- frontpage page template -->
         <div id="frontpage-template">
-            <h1>Front Page</h1>
+            <h1 id="fpage">Front Page</h1>
             <nav>
               <ul>
                 <li><a href='#' data-page="login">Log in</a></li>
@@ -36,10 +36,10 @@
           <h1>Sign Up to Create Your Account</h1>
           <div class ="signup-form">
             <label for="signup-username">Username</label>
-            <input type="text" id="signup-username" name="signup-username" required>
+            <input type="text" id="signup-username" name="signup-username" placeholder="Enter username" required>
             <br>
-            <label for="signup-password">Username</label>
-            <input type="text" id="signup-password" name="signup-password" required>
+            <label for="signup-password">Password</label>
+            <input type="text" id="signup-password" name="signup-password" max=12 placeholder="Enter password" required>
           </div>
           <button id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
           <nav>
@@ -58,7 +58,7 @@
             <input type="text" id="login-username" name="login-username" placeholder="Enter username" required>
             <br>
             <label for="login-password">Password</label>
-            <input type="password" id="login-password" name="login-password" placeholder="Enter password" required>
+            <input type="password" id="login-password" name="login-password" max=12 placeholder="Enter password" required>
           </div>
           <nav>
             <ul>
