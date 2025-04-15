@@ -47,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //initialize the router
     router.init();
 
+    
+
 });
 
 function callBackgroundColorChangeEndpoint() {
