@@ -77,8 +77,8 @@ function callBackgroundColorChangeEndpoint() {
     });
 }
 
-function callSaveNewUserEndpoint() {
-    fetch('/api/user/saveNewUser'), {
+function callCreateNewUserEndpoint() {
+    fetch('/api/user/createNewUser'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

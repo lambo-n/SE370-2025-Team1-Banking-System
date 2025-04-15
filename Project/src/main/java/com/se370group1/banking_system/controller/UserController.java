@@ -21,10 +21,10 @@ public class UserController {
         return userService.ChangeBackgroundColor();
     }
 
-    @GetMapping("/saveNewUser")
-    public void SaveNewUser(){
+    @GetMapping("/createNewUser")
+    public void CreateNewUser(){
         System.out.println("save new user controller called");
-        UserDTO newUser = userService.saveNewUser("1", "test", "password");
+        UserDTO newUser = userService.createNewUser("1", "test", "password");
         
         if(newUser == null)
         {
@@ -32,7 +32,7 @@ public class UserController {
         }
         else
         {
-            System.out.println(newUser.getUsername() + " saved");
+            System.out.printf("username     \"%s\" saved\n", newUser.getUsername());
         }
         
     }

@@ -16,7 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO saveNewUser(String userID, String username, String password) {
+    public UserDTO createNewUser(String userID, String username, String password) {
         
         Boolean userAlreadyExists = CheckIfUserExists(userID, username);
         
@@ -27,7 +27,7 @@ public class UserService {
         else
         {
             User newUser = new User(userID, username, password);
-            //userRepository.save(newUser);
+            userRepository.save(newUser);
     
             UserDTO savedUser = new UserDTO(newUser);
             return savedUser;
@@ -36,7 +36,8 @@ public class UserService {
 
     public Boolean CheckIfUserExists(String userID, String username)
     {
-        return true;
+        //true for duplicate user, false for new non-matching user
+        return false;
     }
 
     public String ChangeBackgroundColor() {

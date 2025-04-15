@@ -4,10 +4,9 @@
   <title>Test Banking Website</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--Links google fonts to our website to allow for font styling-->
-  <!--<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">-->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/bankingstyle.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -44,7 +43,7 @@
             <label for="signup-password">Password</label>
             <input type="text" id="signup-password" name="signup-password" max=12 placeholder="Enter password" required>
           </div>
-          <button id="create-user-button" onclick="callSaveNewUserEndpoint()">Create User</button>
+          <button id="create-user-button" onclick="callCreateNewUserEndpoint()">Create User</button>
           <nav>
             <ul>
               <li><a href='#' data-page="login">Already have an account? Log In here!</a></li>
