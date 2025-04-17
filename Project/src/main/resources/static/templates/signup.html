@@ -1,0 +1,18 @@
+<!-- Sign Up Template-->
+<div id="signup-template">
+    <h1>Sign Up to Create Your Account</h1>
+        <div class ="signup-form">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="signup-username" placeholder="Enter username" required>
+                <br>
+                <label for="signup-password">Password</label>
+            <input type="text" id="signup-password" name="signup-password" max=12 placeholder="Enter password" required>
+        </div>
+    <button id="create-user-button" onclick="callCreateNewUserEndpoint()">Create User</button>
+    <nav>
+        <ul>
+            <li><a href='#' data-page="login">Already have an account? Log In here!</a></li>
+            <li><a href='#' data-page="frontpage"> Back to Front</a></li>
+        </ul>
+    </nav>
+</div>
