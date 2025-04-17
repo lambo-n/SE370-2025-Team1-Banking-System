@@ -35,7 +35,6 @@ function callCreateNewUserEndpoint() {
 
 function callLogInUserEndpoint(button) {
     console.log("login endpoint called")
-    const link = button.nextElementSibling;
-    link.href = `#${link.dataset.page}`;
+    window.location.hash = 'dashboard';
     console.log(link.href);
 }
