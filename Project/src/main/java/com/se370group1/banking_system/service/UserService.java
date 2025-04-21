@@ -1,12 +1,10 @@
 package com.se370group1.banking_system.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.DuplicateKeyException;
 import com.se370group1.banking_system.dto.UserDTO;
 import com.se370group1.banking_system.model.User;
 import com.se370group1.banking_system.repository.UserRepository;
@@ -41,7 +39,7 @@ public class UserService {
     public Boolean CheckIfUserExists(String username)
     {
         List<User> existingUsername = userRepository.findByUsername(username);
-        Boolean userExists = existingUsername.isEmpty() ? false : true;
+        Boolean userExists = !existingUsername.isEmpty();
         return userExists;
     }
 

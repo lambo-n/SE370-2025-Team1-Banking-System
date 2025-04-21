@@ -3,7 +3,7 @@ package com.se370group1.banking_system.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "users")
+@Document(collection = "Users")
 public class User {
     @Id
     private String userID;
