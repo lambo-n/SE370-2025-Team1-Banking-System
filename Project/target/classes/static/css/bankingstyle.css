@@ -224,3 +224,27 @@ input:hover {
   transform: translateY(-3px);
   color:white;
 }
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  text-align: center;
+  border-radius: 25px;
+  padding: 25px;
+  width: 400px;
+  height: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for input fields */
+.signup-inpfield {
+  border: 2px solid gray;
+  border-radius: 15px;
+  width: 90%;
+  height: 50px;
+  margin-bottom: 20px; /* Add spacing between fields */
+  padding: 10px;
+  font-size: 16px;
+}
