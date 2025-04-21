@@ -21,12 +21,36 @@ public class UserController {
         return userService.ChangeBackgroundColor();
     }
 
+    @GetMapping("/logInUser")
+    public void LogInUser(){
+        System.out.println("log in user controller called");
+        
+        try 
+        {
+            Boolean correctLogin = userService.LogInUser("test0", "testpass0");
+            if (correctLogin)
+            {
+                System.out.println("User logged in successfully");
+            }
+            else
+            {
+                System.out.println("Incorrect username or password");
+            }
+        }
+        catch (IllegalAccessError illegalAccessError)
+        {
+            //catch user already exists error
+            System.out.println(illegalAccessError.getMessage());
+        }
+    }
     @GetMapping("/createNewUser")
     public void CreateNewUser(){
         System.out.println("save new user controller called");
         
         try 
         {
+            //TODO: add parameters for CreateNewUser() above, make it so that those arguments are the ones used in the createNewUser() method in userService
+            //attempt new user creation 
             UserDTO newUser = userService.createNewUser("0", "test0", "testpass0");
 
             //user successfully created, will not print if userService throws exception
@@ -34,12 +58,8 @@ public class UserController {
         }
         catch (IllegalAccessError illegalAccessError)
         {
+            //catch user already exists error
             System.out.println("Username taken. Please choose a different one.");
         }    
-    }
-
-    @GetMapping("/logInUser")
-    public void LogInUser() {
-        System.out.println("sign in user called");
     }
 }

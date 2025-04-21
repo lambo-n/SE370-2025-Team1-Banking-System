@@ -24,6 +24,16 @@ function callBackgroundColorChangeEndpoint() {
     });
 }
 
+function callLogInUserEndpoint(button) {
+    console.log("login endpoint called")
+    fetch('/api/user/logInUser'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+}
+
 function callCreateNewUserEndpoint() {
     fetch('/api/user/createNewUser'), {
         method: 'POST',
@@ -33,8 +43,3 @@ function callCreateNewUserEndpoint() {
     }
 }
 
-function callLogInUserEndpoint(button) {
-    console.log("login endpoint called")
-    window.location.hash = 'dashboard';
-    console.log(link.href);
-}

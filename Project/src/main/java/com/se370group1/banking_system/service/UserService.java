@@ -12,10 +12,23 @@ import com.se370group1.banking_system.repository.UserRepository;
 @Service
 public class UserService {
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    public Boolean LogInUser(String username, String password) {
+        List<User> existingUser = userRepository.findByUsername(username);
+        if (existingUser.isEmpty()) 
+        {
+            throw new IllegalAccessError("Username does not exist");
+        } 
+        else 
+        {
+            User user = existingUser.get(0);
+            return user.getPassword().equals(password);
+        }
     }
 
     public UserDTO createNewUser(String userID, String username, String password) {
@@ -35,6 +48,8 @@ public class UserService {
             return savedUser;
         }
     }
+
+
 
     public Boolean CheckIfUserExists(String username)
     {
