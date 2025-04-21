@@ -27,7 +27,7 @@ public class UserController {
         
         try 
         {
-            Boolean correctLogin = userService.LogInUser("test0", "testpass0");
+            Boolean correctLogin = userService.LogInUser("badusername", "wrongpass");
             if (correctLogin)
             {
                 System.out.println("User logged in successfully");

@@ -1,6 +1,13 @@
 package com.se370group1.banking_system.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Transactions")
 public class Transaction { //stack that holds previous transactions
+    @Id
+    private int transaction_id;
+    
     private String transaction_name;
     private double transaction_amount;
 
