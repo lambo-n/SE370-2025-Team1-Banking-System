@@ -1,8 +1,12 @@
 package com.se370group1.banking_system.service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.DuplicateKeyException;
 import com.se370group1.banking_system.dto.UserDTO;
 import com.se370group1.banking_system.model.User;
 import com.se370group1.banking_system.repository.UserRepository;
@@ -18,11 +22,11 @@ public class UserService {
 
     public UserDTO createNewUser(String userID, String username, String password) {
         
-        Boolean userAlreadyExists = CheckIfUserExists(userID, username);
+        Boolean userAlreadyExists = CheckIfUserExists(username);
         
         if (userAlreadyExists)
         {
-            return null;
+            throw new IllegalAccessError("Username already exists");
         }
         else
         {
@@ -34,10 +38,11 @@ public class UserService {
         }
     }
 
-    public Boolean CheckIfUserExists(String userID, String username)
+    public Boolean CheckIfUserExists(String username)
     {
-        //true for duplicate user, false for new non-matching user
-        return false;
+        List<User> existingUsername = userRepository.findByUsername(username);
+        Boolean userExists = existingUsername.isEmpty() ? false : true;
+        return userExists;
     }
 
     public String ChangeBackgroundColor() {
@@ -45,4 +50,6 @@ public class UserService {
         String hexColor = Integer.toHexString(randomColor);
         return hexColor;    
     }
+
+    
 }

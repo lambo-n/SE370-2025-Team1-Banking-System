@@ -1,9 +1,12 @@
 package com.se370group1.banking_system.controller;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mongodb.DuplicateKeyException;
 import com.se370group1.banking_system.dto.UserDTO;
 import com.se370group1.banking_system.service.UserService;
 
@@ -24,17 +27,18 @@ public class UserController {
     @GetMapping("/createNewUser")
     public void CreateNewUser(){
         System.out.println("save new user controller called");
-        UserDTO newUser = userService.createNewUser("1", "test", "password");
         
-        if(newUser == null)
+        try 
         {
-            System.out.println("Username taken. Please choose a different one.");
-        }
-        else
-        {
+            UserDTO newUser = userService.createNewUser("0", "test0", "testpass0");
+
+            //user successfully created, will not print if userService throws exception
             System.out.printf("username     \"%s\" saved\n", newUser.getUsername());
         }
-        
+        catch (DuplicateKeyException duplicateUsername)
+        {
+            System.out.println("Username taken. Please choose a different one.");
+        }    
     }
 
     @GetMapping("/logInUser")
