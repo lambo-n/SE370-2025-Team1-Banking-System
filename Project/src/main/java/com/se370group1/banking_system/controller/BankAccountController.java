@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.se370group1.banking_system.dto.BankAccountDTO;
@@ -19,20 +20,13 @@ public class BankAccountController {
     }
 
     @GetMapping("/getConnectedBankAccounts")
-    public void getConnectedBankAccounts() {
-        System.out.println("getConnectedBankAccounts controller called");
+    public List<BankAccountDTO> getConnectedBankAccounts(@RequestParam String targetConnectedUserID) {
+        System.out.println("getConnectedBankAccounts controller called with userID: " + targetConnectedUserID);
+        
+        List<BankAccountDTO> bankAccountDTOList = bankAccountService.getConnectedBankAccounts(targetConnectedUserID);
 
-        String targetUserID = "1"; //TODO: replace with the actual user ID you want to check ---> turn it into a parameter
-        List<BankAccountDTO> bankAccountDTOList = bankAccountService.getConnectedBankAccounts(targetUserID);
-
-        //print list of bank accounts connected to the given target userID
-        for (BankAccountDTO bankAccountDTO : bankAccountDTOList) {
-            System.out.printf("Account ID: %s, Account Type: %s, Balance: %.2f\n",
-                    bankAccountDTO.getBankAccountID(),
-                    bankAccountDTO.getConnectedUserID(),
-                    bankAccountDTO.getBalance());
-        }
-
+        return bankAccountDTOList;
     }
+    
     
 }

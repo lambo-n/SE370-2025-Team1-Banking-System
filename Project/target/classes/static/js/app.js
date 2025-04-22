@@ -67,11 +67,41 @@ function callCreateNewUserEndpoint() {
 }
 
 function getAllConnectedBankAccountsEndpoint() {
-    fetch('/api/bankAccount/getConnectedBankAccounts'), {
-        method: 'POST',
+    const targetConnectedUserID = "cUtest1"; // Set the targetConnectedUserID dynamically if needed
+
+    fetch(`/api/bankAccount/getConnectedBankAccounts?targetConnectedUserID=${encodeURIComponent(targetConnectedUserID)}`, {
+        method: 'GET', //call the GET method in the controller
         headers: {
             'Content-Type': 'application/json'
         }
-    }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch connected bank accounts');
+        }
+        return response.json();
+    })
+    .then(bankAccounts => {
+        //display the bank accounts in the connected-account-stack div
+        const accountStack = document.getElementById('connected-account-stack');
+        accountStack.innerHTML = ''; //clear any existing content
+
+        const ul = document.createElement('ul'); //create a new list
+        bankAccounts.forEach(account => {
+            const li = document.createElement('li');
+            li.textContent = `Bank Account ID: ${account.bankAccountID}, 
+                              Connected User ID: ${account.connectedUserID}, 
+                              Balance: $${account.balance.toFixed(2)}`;
+            ul.appendChild(li);
+        });
+
+        accountStack.appendChild(ul); //append the list to the account stack
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while fetching connected bank accounts. Please try again later.");
+    });
 }
+
+
 

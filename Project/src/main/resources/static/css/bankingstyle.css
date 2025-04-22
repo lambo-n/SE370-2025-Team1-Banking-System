@@ -171,6 +171,13 @@ nav ul li a:hover {
   box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
 }
 
+.action-bar {
+  display: flex; /* Use flexbox for horizontal alignment */
+  gap: 1rem; /* Add space between the button and the link */
+  justify-content: center; /* Center the items horizontally */
+  margin-bottom: 2rem; /* Add space below the action bar */
+}
+
 /* Style for the accounts template */
 #accounts-template h1 {
   margin-bottom: 1rem; /* Add space below the header */
