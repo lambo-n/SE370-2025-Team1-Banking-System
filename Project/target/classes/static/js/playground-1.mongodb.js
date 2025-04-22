@@ -6,6 +6,8 @@ use("mainBanking");
 
 db.getCollection('Users').deleteMany({});
 db.getCollection('BankAccounts').deleteMany({});
+db.getCollection('Transactions').deleteMany({});
+db.getCollection('Budgets').deleteMany({});
 
 db.getCollection('Users').insertMany([
   { userID: '1', username: 'test1', password: 'testpass1'},
@@ -22,4 +24,12 @@ db.getCollection('Users').insertMany([
 
 db.getCollection('BankAccounts').insertMany([
   { connectedUserID: '1', userID: 'test1', balance: 1000 },
+]);
+
+db.getCollection('Transactions').insertMany([
+  { transactionID: '1', connectedBankAccountID: '1', sourceEntity: 'testlocation1', details: 'testdetails1', amountDollars: 100.00, transactionTime: ISODate("2023-01-01T00:00:00Z") },
+]);
+
+db.getCollection('Budgets').insertMany([
+  { budgetID: '1', connectedUserID: '1', foodPercentage: 25, rentPercentage: 25, entertainmentPercentage: 25, transportationPercentage: 25 }
 ]);
