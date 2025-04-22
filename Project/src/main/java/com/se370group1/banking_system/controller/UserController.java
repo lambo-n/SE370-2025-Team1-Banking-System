@@ -26,7 +26,6 @@ public class UserController {
     public Boolean LogInUser(@RequestParam String username, @RequestParam String password){
         System.out.printf("Passed username: %s\nPassed password: %s\n", username, password);
 
-
         try 
         {
             Boolean correctLogin = userService.LogInUser(username, password);
