@@ -1,24 +1,25 @@
-package com.se370group1.banking_system.model;
+package com.se370group1.banking_system.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.se370group1.banking_system.model.Transaction;
 
-@Document(collection = "Transactions")
-public class Transaction { //stack that holds previous transactions
-    @Id
+public class TransactionDTO {
     private String transactionID;
-    
     private String connectedBankAccount;
     private String sourceEntity;
     private String details;
     private double amountDollars;
 
-    public Transaction(String transactionID, String connectedBankAccount, String sourceEntity, String details, double amount) {
+    public TransactionDTO(String transactionID, String connectedBankAccount, String sourceEntity, String details, double amountDollars) {
         this.transactionID = transactionID;
         this.connectedBankAccount = connectedBankAccount;
         this.sourceEntity = sourceEntity;
         this.details = details;
-        this.amountDollars = amount;
+        this.amountDollars = amountDollars;
+    }
+
+    public Transaction toDomainModel() {
+        Transaction transaction = new Transaction(this.transactionID, this.connectedBankAccount, this.sourceEntity, this.details, this.amountDollars);
+        return transaction;
     }
 
     public String getTransactionID() { return transactionID; }

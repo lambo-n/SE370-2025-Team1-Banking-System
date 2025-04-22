@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/logInUser")
-    public Boolean LogInUser(){
+    public Boolean LogInUser(   ){
         System.out.println("log in user controller called");
         
         try 
