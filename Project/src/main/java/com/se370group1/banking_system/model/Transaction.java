@@ -1,31 +1,35 @@
 package com.se370group1.banking_system.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Transactions")
-public class Transaction { //stack that holds previous transactions
+public class Transaction {
     @Id
     private String transactionID;
     
-    private String connectedBankAccount;
+    private String connectedBankAccountID;
     private String sourceEntity;
     private String details;
     private double amountDollars;
+    private Date transactionDate;
 
-    public Transaction(String transactionID, String connectedBankAccount, String sourceEntity, String details, double amount) {
+    public Transaction(String transactionID, String connectedBankAccountID, String sourceEntity, String details, double amount, Date transactionDate) {
         this.transactionID = transactionID;
-        this.connectedBankAccount = connectedBankAccount;
+        this.connectedBankAccountID = connectedBankAccountID;
         this.sourceEntity = sourceEntity;
         this.details = details;
         this.amountDollars = amount;
+        this.transactionDate = transactionDate;
     }
 
     public String getTransactionID() { return transactionID; }
     public void setTransactionID(String transactionID) { this.transactionID = transactionID; }
 
-    public String getConnectedBankAccount() { return connectedBankAccount; }
-    public void setConnectedBankAccount(String connectedBankAccount) { this.connectedBankAccount = connectedBankAccount; }
+    public String getConnectedBankAccountID() { return connectedBankAccountID; }
+    public void setConnectedBankAccountID(String connectedBankAccountID) { this.connectedBankAccountID = connectedBankAccountID; }
 
     public String getSourceEntity() { return sourceEntity; }
     public void setSourceEntity(String sourceEntity) { this.sourceEntity = sourceEntity; }
@@ -35,4 +39,8 @@ public class Transaction { //stack that holds previous transactions
 
     public double getAmountDollars() { return amountDollars; }
     public void setAmountDollars(double amountDollars) { this.amountDollars = amountDollars; }
+
+    public Date getTransactionDate() { return transactionDate; }
+    public void setTransactionDate(Date transactionDate) { this.transactionDate = transactionDate;
+    }
 }
