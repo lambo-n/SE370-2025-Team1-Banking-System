@@ -26,8 +26,11 @@ function callBackgroundColorChangeEndpoint() {
 
 function callLogInUserEndpoint(button) {
     console.log("login endpoint called");
+    const username = "test1";
+    const password = "testpass1";
 
-    fetch('/api/user/logInUser', {
+    // Include username and password in the query string
+    fetch(`/api/user/logInUser?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
         method: 'GET', // Ensure the method matches your controller
         headers: {
             'Content-Type': 'application/json'
