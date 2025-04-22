@@ -1,56 +1,3 @@
-// Initialize the application
-document.addEventListener('DOMContentLoaded', () => {
-    //templates
-    const templates = {
-        frontpage: document.getElementById('frontpage-template').innerHTML,
-        login: document.getElementById('login-template').innerHTML,
-        signup: document.getElementById('signup-template').innerHTML,
-        dashboard: document.getElementById('dashboard-template').innerHTML,
-        accounts: document.getElementById('accounts-template').innerHTML,
-        transactions: document.getElementById('transactions-template').innerHTML,
-        profile: document.getElementById('profile-template').innerHTML
-    };
-    
-    //create router instance
-    const appElement = document.getElementById('app');
-    const router = new Router(appElement);
-    
-    //define routes
-    router.addRoute('frontpage', () => {
-        appElement.innerHTML = templates.frontpage;
-    });
-
-    router.addRoute('login', () => {
-        appElement.innerHTML = templates.login;
-    });
-
-    router.addRoute('signup', () => {
-        appElement.innerHTML = templates.signup;
-    });
-
-    router.addRoute('dashboard', () => {
-        appElement.innerHTML = templates.dashboard;
-    });
-    
-    router.addRoute('accounts', () => {
-        appElement.innerHTML = templates.accounts;
-    });
-    
-    router.addRoute('transactions', () => {
-        appElement.innerHTML = templates.transactions;
-    });
-    
-    router.addRoute('profile', () => {
-        appElement.innerHTML = templates.profile;
-    });
-    
-    //initialize the router
-    router.init();
-
-    
-
-});
-
 function callBackgroundColorChangeEndpoint() {
     fetch('/api/user/changeColor', {
         method: 'GET',
@@ -77,6 +24,36 @@ function callBackgroundColorChangeEndpoint() {
     });
 }
 
+function callLogInUserEndpoint(button) {
+    console.log("login endpoint called");
+
+    fetch('/api/user/logInUser', {
+        method: 'GET', // Ensure the method matches your controller
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to log in');
+        }
+        return response.json(); // Parse the response as JSON
+    })
+    .then(isLoggedIn => {
+        if (isLoggedIn) {
+            console.log("Login successful, navigating to dashboard...");
+            window.location.hash = 'dashboard'; // Change the hash to dashboard
+        } else {
+            console.log("Login failed, staying on the current page.");
+            alert("Incorrect username or password. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while trying to log in. Please try again later.");
+    });
+}
+
 function callCreateNewUserEndpoint() {
     fetch('/api/user/createNewUser'), {
         method: 'POST',
@@ -86,9 +63,12 @@ function callCreateNewUserEndpoint() {
     }
 }
 
-function callLogInUserEndpoint(button) {
-    console.log("login endpoint called")
-    const link = button.nextElementSibling;
-    link.href = `#${link.dataset.page}`;
-    console.log(link.href);
+function getAllConnectedBankAccountsEndpoint() {
+    fetch('/api/bankAccount/getConnectedBankAccounts'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
 }
+

@@ -1,64 +1,40 @@
-// Simple router for handling page navigation
-class Router {
-    constructor(rootElement) {
-        this.rootElement = rootElement;
-        this.routes = {};
-        this.currentPage = null;
-        
-        //handle navigation
-        window.addEventListener('hashchange', () => this.handleRouteChange());
-        
-        //link click handler
-        document.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A' && e.target.dataset.page) {
-                e.preventDefault();
-                this.navigateTo(e.target.dataset.page);
+// Function to load a template dynamically
+function loadTemplate(templateName) {
+    const app = document.getElementById('app');
+    fetch(`/templates/${templateName}.html`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load template: ${templateName}`);
             }
+            return response.text();
+        })
+        .then(html => {
+            app.innerHTML = html;
+        })
+        .catch(error => {
+            console.error(error);
+            app.innerHTML = `<p>Error loading page: ${templateName}</p>`;
         });
-    }
-    
-    //add a route
-    addRoute(name, renderFunction) {
-        this.routes[name] = renderFunction;
-        return this;
-    }
-    
-    //navigate to specific page
-    navigateTo(page) {
+}
+
+// Handle navigation and update the URL hash
+document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target.tagName === 'A' && target.dataset.page) {
+        event.preventDefault();
+        const page = target.dataset.page;
+
+        // Update the URL hash
         window.location.hash = page;
     }
-    
-    //handles route changes
-    handleRouteChange() {
-        //get the page from the hash
-        const page = window.location.hash.slice(1) || 'frontpage';
-        
-        if (this.routes[page]) {
-            //clear current content
-            this.rootElement.innerHTML = '';
-            
-            //render the new page
-            this.routes[page]();
-            this.currentPage = page;
-            
-            this.updateNavigation();
-        }
-    }
-    
-    //update the navigation to highlight current page
-    updateNavigation() {
-        document.querySelectorAll('nav a').forEach(link => {
-            link.classList.remove('active');
-        });
-        
-        const currentLink = document.querySelector(`nav a[data-page="${this.currentPage}"]`);
-        if (currentLink) {
-            currentLink.classList.add('active');
-        }
-    }
-    
-    //initialize the router
-    init() {
-        this.handleRouteChange();
-    }
-}
+});
+
+// Handle hash changes to load the correct template
+window.addEventListener('hashchange', () => {
+    const page = window.location.hash.slice(1) || 'frontpage'; // Default to 'frontpage'
+    loadTemplate(page);
+});
+
+// Load the default page based on the current hash
+const initialPage = window.location.hash.slice(1) || 'frontpage';
+loadTemplate(initialPage);
