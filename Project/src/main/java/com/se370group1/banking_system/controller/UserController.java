@@ -22,25 +22,28 @@ public class UserController {
     }
 
     @GetMapping("/logInUser")
-    public void LogInUser(){
+    public Boolean LogInUser(){
         System.out.println("log in user controller called");
         
         try 
         {
-            Boolean correctLogin = userService.LogInUser("badusername", "wrongpass");
+            Boolean correctLogin = userService.LogInUser("test1", "testpass1");
             if (correctLogin)
             {
                 System.out.println("User logged in successfully");
+                return true;
             }
             else
             {
                 System.out.println("Incorrect username or password");
+                return false;
             }
         }
         catch (IllegalAccessError illegalAccessError)
         {
             //catch user already exists error
             System.out.println(illegalAccessError.getMessage());
+            return false;
         }
     }
     @GetMapping("/createNewUser")

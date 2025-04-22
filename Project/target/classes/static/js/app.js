@@ -25,8 +25,37 @@ function callBackgroundColorChangeEndpoint() {
 }
 
 function callLogInUserEndpoint(button) {
-    console.log("login endpoint called")
-    fetch('/api/user/logInUser'), {
+    console.log("login endpoint called");
+
+    fetch('/api/user/logInUser', {
+        method: 'GET', // Ensure the method matches your controller
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to log in');
+        }
+        return response.json(); // Parse the response as JSON
+    })
+    .then(isLoggedIn => {
+        if (isLoggedIn) {
+            console.log("Login successful, navigating to dashboard...");
+            window.location.hash = 'dashboard'; // Change the hash to dashboard
+        } else {
+            console.log("Login failed, staying on the current page.");
+            alert("Incorrect username or password. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while trying to log in. Please try again later.");
+    });
+}
+
+function callCreateNewUserEndpoint() {
+    fetch('/api/user/createNewUser'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -34,8 +63,8 @@ function callLogInUserEndpoint(button) {
     }
 }
 
-function callCreateNewUserEndpoint() {
-    fetch('/api/user/createNewUser'), {
+function getAllConnectedBankAccountsEndpoint() {
+    fetch('/api/bankAccount/getConnectedBankAccounts'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

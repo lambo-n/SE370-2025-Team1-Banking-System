@@ -9,10 +9,16 @@ public class BankAccount {
     private String accountID;
 
     private String connectedUserID;
-    double current_balance;
+    double balance;
+
+    public BankAccount(String accountID, String connectedUserID, double balance) {
+        this.accountID = accountID;
+        this.connectedUserID = connectedUserID;
+        this.balance = balance;
+    }
 
     public String getAccountNum() {return this.accountID;}
     public String getConnectedUserID() {return this.connectedUserID;}
-    public double getCurrentBalance() {return this.current_balance;}
+    public double getCurrentBalance() {return this.balance;}
     
 }
