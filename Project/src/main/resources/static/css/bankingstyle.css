@@ -149,6 +149,47 @@ nav ul li a:hover {
   color: #7f8c8d;
 }
 
+/* General button styles */
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+}
+
+.action-bar {
+  display: flex; /* Use flexbox for horizontal alignment */
+  gap: 1rem; /* Add space between the button and the link */
+  justify-content: center; /* Center the items horizontally */
+  margin-bottom: 2rem; /* Add space below the action bar */
+}
+
+/* Style for the accounts template */
+#accounts-template h1 {
+  margin-bottom: 1rem; /* Add space below the header */
+  text-align: center; /* Optional: Center the header */
+}
+
+#accounts-template .btn {
+  display: block; /* Make the button a block element */
+  margin: 0 auto 2rem auto; /* Center the button and add space below */
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   #frontpage-template {
     padding: 1.5rem;

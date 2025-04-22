@@ -6,10 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "BankAccounts")
 public class BankAccount {
     @Id
-    private String accountID;
+    private final String accountID;
 
-    private String connectedUserID;
-    double balance;
+    private final String connectedUserID;
+    private double balance;
 
     public BankAccount(String accountID, String connectedUserID, double balance) {
         this.accountID = accountID;

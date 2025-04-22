@@ -10,26 +10,29 @@ db.getCollection('Transactions').deleteMany({});
 db.getCollection('Budgets').deleteMany({});
 
 db.getCollection('Users').insertMany([
-  { userID: '1', username: 'test1', password: 'testpass1'},
-  { userID: '2', username: 'test2', password: 'testpass2'},
-  { userID: '3', username: 'test3', password: 'testpass3'},
-  { userID: '4', username: 'test4', password: 'testpass4'},
-  { userID: '5', username: 'test5', password: 'testpass5'},
-  { userID: '6', username: 'test6', password: 'testpass6'},
-  { userID: '7', username: 'test7', password: 'testpass7'},
-  { userID: '8', username: 'test8', password: 'testpass8'},
-  { userID: '9', username: 'test9', password: 'testpass9'},
-  { userID: '10', username: 'test10', password: 'testpass10'}
+  { userID: 'U1', username: 'test1', password: 'testpass1'},
+  { userID: 'U2', username: 'test2', password: 'testpass2'},
+  { userID: 'U3', username: 'test3', password: 'testpass3'},
+  { userID: 'U4', username: 'test4', password: 'testpass4'},
+  { userID: 'U5', username: 'test5', password: 'testpass5'},
+  { userID: 'U6', username: 'test6', password: 'testpass6'},
+  { userID: 'U7', username: 'test7', password: 'testpass7'},
+  { userID: 'U8', username: 'test8', password: 'testpass8'},
+  { userID: 'U9', username: 'test9', password: 'testpass9'},
+  { userID: 'U10', username: 'test10', password: 'testpass10'}
 ]);
 
 db.getCollection('BankAccounts').insertMany([
-  { connectedUserID: '1', userID: 'test1', balance: 1000 },
+  { bankAccountID: 'BA1', connectedUserID: 'cUtest1', balance: 1000 },
+  { bankAccountID: 'BA2', connectedUserID: 'cUtest1', balance: 2000 },
+  { bankAccountID: 'BA3', connectedUserID: 'cUtest1', balance: 5000 },
+  { bankAccountID: 'BA4', connectedUserID: 'cUtest1', balance: 0 },
 ]);
 
 db.getCollection('Transactions').insertMany([
-  { transactionID: '1', connectedBankAccountID: '1', sourceEntity: 'testlocation1', details: 'testdetails1', amountDollars: 100.00, transactionTime: ISODate("2023-01-01T00:00:00Z") },
+  { transactionID: 'T1', connectedBankAccountID: 'cBA1', sourceEntity: 'testlocation1', details: 'testdetails1', amountDollars: 100.00, transactionTime: ISODate("2023-01-01T00:00:00Z") },
 ]);
 
 db.getCollection('Budgets').insertMany([
-  { budgetID: '1', connectedUserID: '1', foodPercentage: 25, rentPercentage: 25, entertainmentPercentage: 25, transportationPercentage: 25 }
+  { budgetID: 'BU1', connectedUserID: 'cU1', foodPercentage: 25, rentPercentage: 25, entertainmentPercentage: 25, transportationPercentage: 25 }
 ]);

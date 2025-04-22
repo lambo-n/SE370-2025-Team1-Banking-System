@@ -1,12 +1,18 @@
 <!-- Accounts page template -->
 <div id="accounts-template">
-    <h1>Your Accounts</h1>
-==
-      <nav>
-        <ul>
-          <li><a href='#' data-page="dashboard">Dashboard</a></li>
-          
-        </ul>
-    </nav>
-    <button onclick="getAllConnectedBankAccountsEndpoint(this)">Show Connected Bank Accounts</button>
+  <h1>Your Accounts</h1>
+
+  <!-- Container for the button and the link -->
+  <div class="action-bar">
+    <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">Refresh Connected Bank Accounts</button>
+    <a class="btn" href='#' data-page="dashboard">Dashboard</a>
+  </div>
+
+  <div id="connected-account-stack">
+    <ul>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
 </div>
+

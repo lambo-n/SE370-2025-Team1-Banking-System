@@ -2,6 +2,7 @@ package com.se370group1.banking_system.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.se370group1.banking_system.dto.UserDTO;
@@ -22,12 +23,12 @@ public class UserController {
     }
 
     @GetMapping("/logInUser")
-    public Boolean LogInUser(   ){
-        System.out.println("log in user controller called");
-        
+    public Boolean LogInUser(@RequestParam String username, @RequestParam String password){
+        System.out.printf("Passed username: %s\nPassed password: %s\n", username, password);
+
         try 
         {
-            Boolean correctLogin = userService.LogInUser("test1", "testpass1");
+            Boolean correctLogin = userService.LogInUser(username, password);
             if (correctLogin)
             {
                 System.out.println("User logged in successfully");
