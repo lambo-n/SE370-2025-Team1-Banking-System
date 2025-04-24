@@ -114,44 +114,53 @@
     transform-origin: left;
   }
   
-  .account-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .account-id, .account-user {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 8px;
-  }
-  
-  .account-balance-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-  }
-  
-  .account-balance {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--text-color);
-    background-color: white;
-    padding: 0.75rem 1.25rem;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  .account-item:hover .account-balance {
-    background-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-  }
-  
+  /* Style for the account content container */
+.account-content {
+  display: flex;
+  flex-direction: column; /* Stack details and actions vertically */
+  gap: 0.5rem; /* Reduce the gap between details and actions */
+  padding: 1rem; /* Add padding for spacing inside the card */
+  background-color: var(--light-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the account details */
+.account-details {
+  display: flex;
+  flex-direction: column; /* Stack the name and balance vertically */
+  gap: 0.25rem; /* Reduce the gap between the name and balance */
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+/* Style for the action buttons container */
+.bank-account-actions {
+  display: flex;
+  gap: 0.5rem; /* Add spacing between the buttons */
+  justify-content: flex-start; /* Align buttons to the left */
+}
+
+/* Style for the action buttons */
+.action-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  background-color: var(--accent-color);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
   .loading-state, .empty-state {
     padding: 2.5rem;
     text-align: center;

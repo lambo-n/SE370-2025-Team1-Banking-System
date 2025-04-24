@@ -11,13 +11,13 @@ public class BudgetDTO {
     private int entertainmentPercentage;
     private int transportationPercentage;
 
-    public BudgetDTO(String budgetID, String connectedUserID, int foodPercentage, int rentPercentage, int entertainmentPercentage, int transportationPercentage) {
-        this.budgetID = budgetID;
-        this.connectedUserID = connectedUserID;
-        this.foodPercentage = foodPercentage;
-        this.rentPercentage = rentPercentage;
-        this.entertainmentPercentage = entertainmentPercentage;
-        this.transportationPercentage = transportationPercentage;
+    public BudgetDTO(Budget budget) {
+        this.budgetID = budget.getBudgetID();
+        this.connectedUserID = budget.getConnectedUserID();
+        this.foodPercentage = budget.getFoodPercentage();
+        this.rentPercentage = budget.getRentPercentage();   
+        this.entertainmentPercentage = budget.getEntertainmentPercentage();
+        this.transportationPercentage = budget.getTransportationPercentage();
     }
 
     public Budget toDomainModel() {

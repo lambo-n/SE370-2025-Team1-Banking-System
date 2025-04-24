@@ -106,22 +106,12 @@ function getAllConnectedBankAccountsEndpoint() {
       
       
 
-      bankAccounts.forEach(bankAccount => {4
-        console.log("Bank Account:", bankAccount.bankAccountName)
-
+      bankAccounts.forEach(bankAccount => {
         const li = document.createElement('li');
-        li.className = 'account-item';
+        li.className = 'account-content';
         
         // Format the account details with square card layout
-        li.innerHTML = `
-          <div class="account-details">
-            <div class="bank-account-name">Bank Account: ${bankAccount.bankAccountName}</div>
-            <div class="bank-account-connected-user">User: ${bankAccount.connectedUserID}</div>
-          </div>
-          <div class="account-balance-container">
-            <div class="account-balance">$${bankAccount.balance.toFixed(2)}</div>
-          </div>
-        `;
+        li.innerHTML = generateBankAccountHTML(bankAccount);
         
         ul.appendChild(li);
       });
@@ -143,6 +133,21 @@ function getAllConnectedBankAccountsEndpoint() {
   document.addEventListener('DOMContentLoaded', function() {
     getAllConnectedBankAccountsEndpoint();
   });
+
+  function generateBankAccountHTML(bankAccount) {
+    return `
+        <div class="account-content">
+            <div class="account-details">
+                <div class="bank-account-name">Bank Account: ${bankAccount.bankAccountName}</div>
+                <div class="bank-account-balance">Current Balance: $${bankAccount.balance.toFixed(2)}</div>
+            </div>
+            <div class="bank-account-actions">
+                <button class="action-btn" onclick="makeTransaction('${bankAccount.bankAccountID}')">Make a Transaction</button>
+                <button class="action-btn" onclick="withdraw('${bankAccount.bankAccountID}')">Withdraw</button>
+            </div>
+        </div>
+    `;
+}
 
 
 
