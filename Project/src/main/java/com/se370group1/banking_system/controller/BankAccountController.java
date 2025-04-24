@@ -28,5 +28,7 @@ public class BankAccountController {
         return bankAccountDTOList;
     }
     
-    
 }
+//controller handles incoming requests and delegates to service layer
+//DTO's are used to transfer data between layers especially if the internal representation of data in the service layer differs from what the controller needs to expose.
+//

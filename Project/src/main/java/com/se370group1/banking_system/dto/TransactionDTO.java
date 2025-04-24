@@ -8,7 +8,7 @@ public class TransactionDTO {
     private String transactionID;
     private String connectedBankAccount;
     private String sourceEntity;
-    private String details;
+    private String details; //name of transaction, how much, date and time
     private double amountDollars;
     private Date transactionDate;
 
@@ -20,12 +20,20 @@ public class TransactionDTO {
         this.amountDollars = amountDollars;
         this.transactionDate = transactionDate;
     }
-
+    public TransactionDTO(Transaction t) {
+        this.transactionID = null;
+        this.connectedBankAccount = null;
+        this.sourceEntity = null;
+        this.details  = null;
+        this.amountDollars = 0.0;
+        this.transactionDate = null;
+    }
     public Transaction toDomainModel() {
         Transaction transaction = new Transaction(this.transactionID, this.connectedBankAccount, this.sourceEntity, this.details, this.amountDollars, this.transactionDate);
         return transaction;
     }
 
+    public TransactionDTO geTransactionDTO() { return this; }
     public String getTransactionID() { return transactionID; }
     public void setTransactionID(String transactionID) { this.transactionID = transactionID; }
 

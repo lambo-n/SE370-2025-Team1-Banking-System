@@ -13,6 +13,5 @@ public class BudgetService {
     public BudgetService(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
     }
-
     // Add methods here
 }
