@@ -23,10 +23,10 @@ db.getCollection('Users').insertMany([
 ]);
 
 db.getCollection('BankAccounts').insertMany([
-  { bankAccountID: 'BA1', connectedUserID: 'cUtest1', balance: 1000 },
-  { bankAccountID: 'BA2', connectedUserID: 'cUtest1', balance: 2000 },
-  { bankAccountID: 'BA3', connectedUserID: 'cUtest1', balance: 5000 },
-  { bankAccountID: 'BA4', connectedUserID: 'cUtest1', balance: 0 },
+  { bankAccountID: 'BA1', bankAccountName: 'Chase', connectedUserID: 'cUtest1', balance: 1000 },
+  { bankAccountID: 'BA2', bankAccountName: 'Bank of America', connectedUserID: 'cUtest1', balance: 2000 },
+  { bankAccountID: 'BA3', bankAccountName: 'Wells Fargo', connectedUserID: 'cUtest1', balance: 5000 },
+  { bankAccountID: 'BA4', bankAccountName: 'US Bank', connectedUserID: 'cUtest1', balance: 0 },
 ]);
 
 db.getCollection('Transactions').insertMany([
