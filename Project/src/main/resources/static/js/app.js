@@ -67,41 +67,82 @@ function callCreateNewUserEndpoint() {
 }
 
 function getAllConnectedBankAccountsEndpoint() {
+    // Show loading state
+    const accountStack = document.getElementById('connected-account-stack');
+    accountStack.innerHTML = '<div class="loading-state"><p>Loading your accounts...</p></div>';
+    
     const targetConnectedUserID = "cUtest1"; // Set the targetConnectedUserID dynamically if needed
-
+    
     fetch(`/api/bankAccount/getConnectedBankAccounts?targetConnectedUserID=${encodeURIComponent(targetConnectedUserID)}`, {
-        method: 'GET', //call the GET method in the controller
-        headers: {
-            'Content-Type': 'application/json'
-        }
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch connected bank accounts');
-        }
-        return response.json();
+      if (!response.ok) {
+        throw new Error('Failed to fetch connected bank accounts');
+      }
+      return response.json();
     })
     .then(bankAccounts => {
-        //display the bank accounts in the connected-account-stack div
-        const accountStack = document.getElementById('connected-account-stack');
-        accountStack.innerHTML = ''; //clear any existing content
+      // Clear the loading state
+      accountStack.innerHTML = '';
+      
+      if (bankAccounts.length === 0) {
+        // Display empty state if no accounts
+        accountStack.innerHTML = `
+          <div class="empty-state">
+            <p>No connected bank accounts found.</p>
+            <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">Try Again</button>
+          </div>
+        `;
+        return;
+      }
+      
+      // Create a new list with enhanced styling
+      const ul = document.createElement('ul');
+      ul.className = 'account-list';
+      
+      
 
-        const ul = document.createElement('ul'); //create a new list
-        bankAccounts.forEach(account => {
-            const li = document.createElement('li');
-            li.textContent = `Bank Account ID: ${account.bankAccountID}, 
-                              Connected User ID: ${account.connectedUserID}, 
-                              Balance: $${account.balance.toFixed(2)}`;
-            ul.appendChild(li);
-        });
+      bankAccounts.forEach(bankAccount => {4
+        console.log("Bank Account:", bankAccount.bankAccountName)
 
-        accountStack.appendChild(ul); //append the list to the account stack
+        const li = document.createElement('li');
+        li.className = 'account-item';
+        
+        // Format the account details with square card layout
+        li.innerHTML = `
+          <div class="account-details">
+            <div class="bank-account-name">Bank Account: ${bankAccount.bankAccountName}</div>
+            <div class="bank-account-connected-user">User: ${bankAccount.connectedUserID}</div>
+          </div>
+          <div class="account-balance-container">
+            <div class="account-balance">$${bankAccount.balance.toFixed(2)}</div>
+          </div>
+        `;
+        
+        ul.appendChild(li);
+      });
+      
+      accountStack.appendChild(ul);
     })
     .catch(error => {
-        console.error('Error:', error);
-        alert("An error occurred while fetching connected bank accounts. Please try again later.");
+      console.error('Error:', error);
+      accountStack.innerHTML = `
+        <div class="empty-state">
+          <p>An error occurred while fetching your accounts.</p>
+          <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">Try Again</button>
+        </div>
+      `;
     });
-}
+  }
+  
+  // Initialize when the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    getAllConnectedBankAccountsEndpoint();
+  });
 
 
 
