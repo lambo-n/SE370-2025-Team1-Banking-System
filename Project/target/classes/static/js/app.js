@@ -73,6 +73,8 @@ function getAllConnectedBankAccountsEndpoint() {
     
     const targetConnectedUserID = "cUtest1"; // Set the targetConnectedUserID dynamically if needed
     
+    //calls the function in BankAccountController using the /api/bankAccount/getConnectedBankAccounts mapped endpoint
+    //?targetConnectedUserID passes the hard coded userID into the bank account controller function
     fetch(`/api/bankAccount/getConnectedBankAccounts?targetConnectedUserID=${encodeURIComponent(targetConnectedUserID)}`, {
       method: 'GET',
       headers: {
