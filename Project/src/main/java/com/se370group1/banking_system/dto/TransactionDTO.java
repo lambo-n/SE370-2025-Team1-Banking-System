@@ -8,7 +8,7 @@ public class TransactionDTO {
     private String transactionID;
     private String connectedBankAccount;
     private String sourceEntity;
-    private String details; //name of transaction, how much, date and time
+    private String details; 
     private double amountDollars;
     private Date transactionDate;
 
@@ -16,14 +16,11 @@ public class TransactionDTO {
         this.transactionID = transaction.getTransactionID();
         this.connectedBankAccount = transaction.getConnectedBankAccountID();
         this.sourceEntity = transaction.getSourceEntity();
-<<<<<<< HEAD
-        this.details  = transaction.getDetails();
-=======
         this.details = transaction.getDetails();
->>>>>>> lambo-n/main
         this.amountDollars = transaction.getAmountDollars();
         this.transactionDate = transaction.getTransactionDate();
     }
+
     public Transaction toDomainModel() {
         Transaction transaction = new Transaction(this.transactionID, this.connectedBankAccount, this.sourceEntity, this.details, this.amountDollars, this.transactionDate);
         return transaction;

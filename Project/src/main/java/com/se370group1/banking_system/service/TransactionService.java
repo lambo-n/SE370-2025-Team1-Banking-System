@@ -1,14 +1,13 @@
 package com.se370group1.banking_system.service;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.se370group1.banking_system.dto.TransactionDTO;
 import com.se370group1.banking_system.model.Transaction;
-import com.se370group1.banking_system.repository.BankAccountRepository;
 import com.se370group1.banking_system.repository.TransactionRepository;
 
 @Service
@@ -16,7 +15,7 @@ public class TransactionService {
     @Autowired
     private final TransactionRepository transactionRepository;
 
-    public TransactionService(TransactionRepository transactionRepository, BankAccountRepository accountRepository) {
+    public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
     /*
@@ -56,8 +55,5 @@ public class TransactionService {
         TransactionDTO mostRecentDTO = dto.get(dto.size() - 1);
         return mostRecentDTO; 
     }
-
-
-
 
 } //end of class
