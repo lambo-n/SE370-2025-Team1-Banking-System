@@ -8,7 +8,7 @@ public class TransactionDTO {
     private String transactionID;
     private String connectedBankAccount;
     private String sourceEntity;
-    private String details;
+    private String details; 
     private double amountDollars;
     private Date transactionDate;
 
