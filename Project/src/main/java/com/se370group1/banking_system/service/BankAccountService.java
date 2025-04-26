@@ -19,21 +19,27 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public List<BankAccountDTO> getConnectedBankAccounts(String connectedUserID) {
-        List<BankAccount> bankAccountList = bankAccountRepository.findByConnectedUserID(connectedUserID);
-        List<BankAccountDTO> bankAccountDTOList = new ArrayList<>();
+    public List<BankAccountDTO> getConnectedBankAccounts(String targedConnectedUserID) {
+        //request bankAccountList of NORMAL DOMAIN OBJECTS from bankAccountRepository.java
+        //pass the same targetConnectedUserID down to use for database searching
+        List<BankAccount> bankAccountList = bankAccountRepository.findByConnectedUserID(targedConnectedUserID);
+        List<BankAccountDTO> bankAccountDTOList = new ArrayList<>(); //this is the DTO list that will get returned to bankAccountController.java
 
+        //if no bank accounts are connected to the user 
         if(bankAccountList.isEmpty()) {
-            System.out.println("No bank accounts found for user ID: " + connectedUserID);
+            System.out.println("No bank accounts found for user ID: " + targedConnectedUserID);
         }
         else
         {
+            //convert the list of normal domain objects to the list of data transfer objects
+            //simply copies the data using the DTO constructor
             for (BankAccount newBankAccount : bankAccountList) {
                 BankAccountDTO dto = new BankAccountDTO(newBankAccount);
                 bankAccountDTOList.add(dto);
             }
         }
 
+        //return list of DTOs back to bankAccountController.java
         return bankAccountDTOList; 
     }
     
