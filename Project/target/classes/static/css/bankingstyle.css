@@ -178,6 +178,7 @@ nav ul li a:hover {
   margin-bottom: 2rem; /* Add space below the action bar */
 }
 
+
 /* Style for the accounts template */
 #accounts-template h1 {
   margin-bottom: 1rem; /* Add space below the header */
@@ -265,7 +266,6 @@ input:hover {
   transform: translateY(-3px);
   color:white;
 }
-
 .login-form {
   display: flex;
   flex-direction: column;
