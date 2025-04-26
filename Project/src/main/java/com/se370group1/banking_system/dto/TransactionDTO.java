@@ -12,13 +12,13 @@ public class TransactionDTO {
     private double amountDollars;
     private Date transactionDate;
 
-    public TransactionDTO(Transaction t) {
-        this.transactionID = t.getTransactionID();
-        this.connectedBankAccount = t.getConnectedBankAccountID();
-        this.sourceEntity = t.getSourceEntity();
-        this.details  = t.getDetails();
-        this.amountDollars = t.getAmountDollars();
-        this.transactionDate = t.getTransactionDate();
+    public TransactionDTO(Transaction transaction) {
+        this.transactionID = transaction.getTransactionID();
+        this.connectedBankAccount = transaction.getConnectedBankAccountID();
+        this.sourceEntity = transaction.getSourceEntity();
+        this.details  = transaction.getDetails();
+        this.amountDollars = transaction.getAmountDollars();
+        this.transactionDate = transaction.getTransactionDate();
     }
     public Transaction toDomainModel() {
         Transaction transaction = new Transaction(this.transactionID, this.connectedBankAccount, this.sourceEntity, this.details, this.amountDollars, this.transactionDate);
