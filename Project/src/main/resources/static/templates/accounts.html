@@ -1,18 +1,212 @@
 <!-- Accounts page template -->
-<div id="accounts-template">
+<div id="accounts-template" class="scrollable-container">
   <h1>Your Accounts</h1>
-
+  
   <!-- Container for the button and the link -->
   <div class="action-bar">
-    <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">Refresh Connected Bank Accounts</button>
-    <a class="btn" href='#' data-page="dashboard">Dashboard</a>
+    <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">
+      <i class="fas fa-sync-alt"></i> Refresh Accounts
+    </button>
+    <a class="btn" href='#' data-page="dashboard">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
   </div>
-
-  <div id="connected-account-stack">
-    <ul>
-      <li></li>
-      <li></li>
-    </ul>
+  
+  <div id="connected-account-stack" class="account-container">
+    <!-- Accounts will be loaded here -->
+    <div class="loading-state">
+      <p>Loading your accounts...</p>
+    </div>
   </div>
 </div>
 
+<style>
+  /* Make the main container grow dynamically */
+  #accounts-template {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    height: auto; /* Allow the container to grow dynamically */
+    box-sizing: border-box; /* Include padding in height calculation */
+    padding: 1rem; /* Add padding for spacing */
+  }
+
+  /* Ensure the action bar is visible and positioned correctly */
+  #accounts-template .action-bar {
+    flex-shrink: 0; /* Prevent the action bar from shrinking */
+    margin-bottom: 1rem; /* Add spacing below the action bar */
+    z-index: 10; /* Ensure it stays above other elements */
+  }
+
+  /* Allow the account container to grow naturally */
+  #accounts-template .account-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    box-sizing: border-box; /* Include padding in height calculation */
+    width: 100%; /* Ensure it takes the full width of the parent */
+  }
+
+  /* Account stack specific styles */
+  .account-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 2rem;
+    position: relative;
+    padding: 1.5rem;
+    width: 100%;
+  }
+  
+  .account-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  }
+  
+  .account-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .account-item {
+    aspect-ratio: 1/1;
+    background-color: var(--light-bg);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .account-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  
+  .account-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .account-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+  /* Style for the account content container */
+.account-content {
+  display: flex;
+  flex-direction: column; /* Stack details and actions vertically */
+  gap: 0.5rem; /* Reduce the gap between details and actions */
+  padding: 1rem; /* Add padding for spacing inside the card */
+  background-color: var(--light-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the account details */
+.account-details {
+  display: flex;
+  flex-direction: column; /* Stack the name and balance vertically */
+  gap: 0.25rem; /* Reduce the gap between the name and balance */
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+/* Style for the action buttons container */
+.bank-account-actions {
+  display: flex;
+  gap: 0.5rem; /* Add spacing between the buttons */
+  justify-content: flex-start; /* Align buttons to the left */
+}
+
+/* Style for the action buttons */
+.action-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  background-color: var(--accent-color);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+  .loading-state, .empty-state {
+    padding: 2.5rem;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+  }
+  
+  /* Override action-bar styles for accounts page */
+  #accounts-template .action-bar {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Ensure the body and html can grow with the content */
+  html, body {
+    height: auto; /* Allow the page to grow dynamically */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    box-sizing: border-box; /* Include padding and border in width/height calculations */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  /* Media query for responsive design */
+  @media (max-width: 768px) {
+    .account-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .account-item {
+      aspect-ratio: auto;
+      padding: 1.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #accounts-template {
+      padding: 0.5rem; /* Reduce padding for smaller screens */
+    }
+
+    #accounts-template .action-bar {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 0.5rem; /* Add spacing between buttons */
+    }
+
+    #accounts-template .account-container {
+      padding: 1rem; /* Reduce padding for smaller screens */
+    }
+  }
+</style>

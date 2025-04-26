@@ -23,8 +23,11 @@ public class BankAccountController {
     public List<BankAccountDTO> getConnectedBankAccounts(@RequestParam String targetConnectedUserID) {
         System.out.println("getConnectedBankAccounts controller called with userID: " + targetConnectedUserID);
         
+        //request to get a list of data transfer objects from bankAccountService.java
+        //pass the targetConnectedUserID down to use for database searching
         List<BankAccountDTO> bankAccountDTOList = bankAccountService.getConnectedBankAccounts(targetConnectedUserID);
 
+        //return the list back to app.js
         return bankAccountDTOList;
     }
     

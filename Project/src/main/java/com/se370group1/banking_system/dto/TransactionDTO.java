@@ -16,7 +16,11 @@ public class TransactionDTO {
         this.transactionID = transaction.getTransactionID();
         this.connectedBankAccount = transaction.getConnectedBankAccountID();
         this.sourceEntity = transaction.getSourceEntity();
+<<<<<<< HEAD
         this.details  = transaction.getDetails();
+=======
+        this.details = transaction.getDetails();
+>>>>>>> lambo-n/main
         this.amountDollars = transaction.getAmountDollars();
         this.transactionDate = transaction.getTransactionDate();
     }

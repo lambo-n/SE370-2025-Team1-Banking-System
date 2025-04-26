@@ -25,7 +25,7 @@ public class BankAccountService {
         List<BankAccount> bankAccountList = bankAccountRepository.findByConnectedUserID(targedConnectedUserID);
         List<BankAccountDTO> bankAccountDTOList = new ArrayList<>(); //this is the DTO list that will get returned to bankAccountController.java
 
-        //if no bank accounts are connected to the user 
+        //if no bank accounts are connected to the user
         if(bankAccountList.isEmpty()) {
             System.out.println("No bank accounts found for user ID: " + targedConnectedUserID);
         }
