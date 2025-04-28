@@ -50,9 +50,17 @@ function callBackgroundColorChangeEndpoint() {
 }
 
 function callLogInUserEndpoint(button) {
-    console.log("login endpoint called");
-    const username = "test1";
-    const password = "testpass1";
+    console.log("Login endpoint called");
+
+    // Get the values from the username and password input fields
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    // Ensure the username and password are not empty
+    if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+    }
 
     // Include username and password in the query string
     fetch(`/api/user/logInUser?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
