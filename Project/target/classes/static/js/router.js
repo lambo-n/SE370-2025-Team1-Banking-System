@@ -39,7 +39,7 @@ window.addEventListener('hashchange', () => {
     const page = window.location.hash.slice(1) || 'frontpage'; // Default to 'frontpage'
 
     // List of pages that require session validation
-    const protectedPages = ['dashboard', 'profile', 'accounts', 'transactions'];
+    const protectedPages = ['dashboard', 'profile', 'accounts', 'transactions', 'budget'];
 
     if (protectedPages.includes(page)) {
         // Check session status before loading protected pages
