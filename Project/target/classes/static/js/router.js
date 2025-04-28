@@ -34,12 +34,15 @@ document.addEventListener('click', (event) => {
     }
 });
 
-//handles hash changes to load the correct template
+// Handles hash changes to load the correct template
 window.addEventListener('hashchange', () => {
     const page = window.location.hash.slice(1) || 'frontpage'; // Default to 'frontpage'
 
-    if (page === 'dashboard') {
-        // Check session status before loading the dashboard
+    // List of pages that require session validation
+    const protectedPages = ['dashboard', 'profile', 'accounts', 'transactions'];
+
+    if (protectedPages.includes(page)) {
+        // Check session status before loading protected pages
         fetch('/api/user/sessionStatus', {
             method: 'GET',
             credentials: 'include' // Include cookies in the request
@@ -52,7 +55,7 @@ window.addEventListener('hashchange', () => {
         })
         .then(data => {
             if (data.isLoggedIn) {
-                loadTemplate(page); // Load the dashboard if the session is valid
+                loadTemplate(page); // Load the page if the session is valid
             } else {
                 console.log('Unauthorized access. Redirecting to login.');
                 window.location.hash = 'login'; // Redirect to login page
@@ -67,11 +70,11 @@ window.addEventListener('hashchange', () => {
     }
 });
 
-//load the default page based on the current hash
+// Load the default page based on the current hash
 const initialPage = window.location.hash.slice(1) || 'frontpage';
 
-if (initialPage === 'dashboard') {
-    // Check session status before loading the dashboard
+if (['dashboard', 'profile', 'accounts', 'transactions'].includes(initialPage)) {
+    // Check session status before loading protected pages
     fetch('/api/user/sessionStatus', {
         method: 'GET',
         credentials: 'include' // Include cookies in the request
@@ -84,7 +87,7 @@ if (initialPage === 'dashboard') {
     })
     .then(data => {
         if (data.isLoggedIn) {
-            loadTemplate(initialPage); // Load the dashboard if the session is valid
+            loadTemplate(initialPage); // Load the page if the session is valid
         } else {
             console.log('Unauthorized access. Redirecting to login.');
             window.location.hash = 'login'; // Redirect to login page
