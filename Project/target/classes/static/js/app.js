@@ -11,7 +11,7 @@ function checkSessionStatus() {
     })
     .then(data => {
         if (data.isLoggedIn) {
-            console.log(`User is logged in as: ${data.username}`);
+            alert(`User is logged in as: ${data.username}`);
         } else {
             console.log('User is not logged in');
             window.location.hash = 'login'; // Redirect to login page

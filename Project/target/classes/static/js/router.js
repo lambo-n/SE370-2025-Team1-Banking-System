@@ -59,6 +59,7 @@ window.addEventListener('hashchange', () => {
             } else {
                 console.log('Unauthorized access. Redirecting to login.');
                 window.location.hash = 'login'; // Redirect to login page
+                alert('Session expired. Please log in again.');
             }
         })
         .catch(error => {
