@@ -37,9 +37,63 @@ document.addEventListener('click', (event) => {
 //handles hash changes to load the correct template
 window.addEventListener('hashchange', () => {
     const page = window.location.hash.slice(1) || 'frontpage'; // Default to 'frontpage'
-    loadTemplate(page);
+
+    if (page === 'dashboard') {
+        // Check session status before loading the dashboard
+        fetch('/api/user/sessionStatus', {
+            method: 'GET',
+            credentials: 'include' // Include cookies in the request
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Session validation failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.isLoggedIn) {
+                loadTemplate(page); // Load the dashboard if the session is valid
+            } else {
+                console.log('Unauthorized access. Redirecting to login.');
+                window.location.hash = 'login'; // Redirect to login page
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            window.location.hash = 'login'; // Redirect to login page on error
+        });
+    } else {
+        loadTemplate(page); // Load other pages without session validation
+    }
 });
 
 //load the default page based on the current hash
 const initialPage = window.location.hash.slice(1) || 'frontpage';
-loadTemplate(initialPage);
+
+if (initialPage === 'dashboard') {
+    // Check session status before loading the dashboard
+    fetch('/api/user/sessionStatus', {
+        method: 'GET',
+        credentials: 'include' // Include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Session validation failed');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.isLoggedIn) {
+            loadTemplate(initialPage); // Load the dashboard if the session is valid
+        } else {
+            console.log('Unauthorized access. Redirecting to login.');
+            window.location.hash = 'login'; // Redirect to login page
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        window.location.hash = 'login'; // Redirect to login page on error
+    });
+} else {
+    loadTemplate(initialPage); // Load other pages without session validation
+}

@@ -1,3 +1,27 @@
+function checkSessionStatus() {
+    fetch('/api/user/sessionStatus', {
+        method: 'GET',
+        credentials: 'include' // Include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Session validation failed');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.isLoggedIn) {
+            console.log('User is logged in');
+        } else {
+            console.log('User is not logged in');
+            window.location.hash = 'login'; // Redirect to login page
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 function callBackgroundColorChangeEndpoint() {
     fetch('/api/user/changeColor', {
         method: 'GET',

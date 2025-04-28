@@ -1,3 +1,28 @@
+function checkSessionStatus() {
+    fetch('/api/user/sessionStatus', {
+        method: 'GET',
+        credentials: 'include' // Include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Session validation failed');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.isLoggedIn) {
+            console.log(`User is logged in as: ${data.username}`);
+        } else {
+            console.log('User is not logged in');
+            window.location.hash = 'login'; // Redirect to login page
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        window.location.hash = 'login'; // Redirect to login page on error
+    });
+}
+
 function callBackgroundColorChangeEndpoint() {
     fetch('/api/user/changeColor', {
         method: 'GET',
@@ -48,12 +73,32 @@ function callLogInUserEndpoint(button) {
             window.location.hash = 'dashboard'; // Change the hash to dashboard
         } else {
             console.log("Login failed, staying on the current page.");
-            alert("Incorrect username or password. Please try again.");
+            alert("Incorrect username or password. Please try again."); 
         }
     })
     .catch(error => {
         console.error('Error:', error);
         alert("An error occurred while trying to log in. Please try again later.");
+    });
+}
+
+function callLogOutUserEndpoint() {
+    fetch('/api/user/logOutUser', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to log out');
+        }
+        console.log("User logged out successfully");
+        window.location.hash = 'login'; // Redirect to the login page
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while trying to log out. Please try again later.");
     });
 }
 
@@ -133,8 +178,10 @@ function getAllConnectedBankAccountsEndpoint() {
   
   // Initialize when the page loads
   document.addEventListener('DOMContentLoaded', function() {
-    getAllConnectedBankAccountsEndpoint();
-  });
+    if (window.location.hash === '#dashboard') {
+        checkSessionStatus();
+    }
+});
 
   function generateBankAccountHTML(bankAccount) {
     return `

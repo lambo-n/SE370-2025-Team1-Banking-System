@@ -8,7 +8,6 @@ public class BankingSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(BankingSystemApplication.class, args);
     }
-
 }
 /*
 To run program, type 'localhost:8080' into your web browser
