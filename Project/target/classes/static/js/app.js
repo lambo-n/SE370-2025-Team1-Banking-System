@@ -11,7 +11,7 @@ function checkSessionStatus() {
     })
     .then(data => {
         if (data.isLoggedIn) {
-            alert(`User is logged in as: ${data.username}`);
+            console.log('User is logged in');
         } else {
             console.log('User is not logged in');
             window.location.hash = 'login'; // Redirect to login page
@@ -19,7 +19,6 @@ function checkSessionStatus() {
     })
     .catch(error => {
         console.error('Error:', error);
-        window.location.hash = 'login'; // Redirect to login page on error
     });
 }
 
@@ -50,17 +49,9 @@ function callBackgroundColorChangeEndpoint() {
 }
 
 function callLogInUserEndpoint(button) {
-    console.log("Login endpoint called");
-
-    // Get the values from the username and password input fields
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-
-    // Ensure the username and password are not empty
-    if (!username || !password) {
-        alert("Please enter both username and password.");
-        return;
-    }
+    console.log("login endpoint called");
+    const username = "test1";
+    const password = "testpass1";
 
     // Include username and password in the query string
     fetch(`/api/user/logInUser?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
@@ -81,32 +72,12 @@ function callLogInUserEndpoint(button) {
             window.location.hash = 'dashboard'; // Change the hash to dashboard
         } else {
             console.log("Login failed, staying on the current page.");
-            alert("Incorrect username or password. Please try again."); 
+            alert("Incorrect username or password. Please try again.");
         }
     })
     .catch(error => {
         console.error('Error:', error);
         alert("An error occurred while trying to log in. Please try again later.");
-    });
-}
-
-function callLogOutUserEndpoint() {
-    fetch('/api/user/logOutUser', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to log out');
-        }
-        console.log("User logged out successfully");
-        window.location.hash = 'login'; // Redirect to the login page
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("An error occurred while trying to log out. Please try again later.");
     });
 }
 
@@ -186,10 +157,8 @@ function getAllConnectedBankAccountsEndpoint() {
   
   // Initialize when the page loads
   document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.hash === '#dashboard') {
-        checkSessionStatus();
-    }
-});
+    getAllConnectedBankAccountsEndpoint();
+  });
 
   function generateBankAccountHTML(bankAccount) {
     return `

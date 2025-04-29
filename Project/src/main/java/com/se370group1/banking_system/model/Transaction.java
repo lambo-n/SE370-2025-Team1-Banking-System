@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.se370group1.banking_system.dto.TransactionDTO;
+
 @Document(collection = "Transactions")
 public class Transaction {
     @Id
@@ -25,6 +27,13 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
+    public Transaction(TransactionDTO t_dto) {
+        this.transactionID = t_dto.getTransactionID();
+        this.connectedBankAccountID = t_dto.getConnectedBankAccount();
+        this.sourceEntity = t_dto.getSourceEntity();
+        this.details = t_dto.getDetails();
+        this.transactionDate = t_dto.getTransactionDate();
+    }
     public String getTransactionID() { return transactionID; }
     public void setTransactionID(String transactionID) { this.transactionID = transactionID; }
 
