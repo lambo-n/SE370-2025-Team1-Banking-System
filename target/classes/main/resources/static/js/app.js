@@ -1,56 +1,3 @@
-// Initialize the application
-document.addEventListener('DOMContentLoaded', () => {
-    //templates
-    const templates = {
-        frontpage: document.getElementById('frontpage-template').innerHTML,
-        login: document.getElementById('login-template').innerHTML,
-        signup: document.getElementById('signup-template').innerHTML,
-        dashboard: document.getElementById('dashboard-template').innerHTML,
-        accounts: document.getElementById('accounts-template').innerHTML,
-        transactions: document.getElementById('transactions-template').innerHTML,
-        profile: document.getElementById('profile-template').innerHTML
-    };
-    
-    //create router instance
-    const appElement = document.getElementById('app');
-    const router = new Router(appElement);
-    
-    //define routes
-    router.addRoute('frontpage', () => {
-        appElement.innerHTML = templates.frontpage;
-    });
-
-    router.addRoute('login', () => {
-        appElement.innerHTML = templates.login;
-    });
-
-    router.addRoute('signup', () => {
-        appElement.innerHTML = templates.signup;
-    });
-
-    router.addRoute('dashboard', () => {
-        appElement.innerHTML = templates.dashboard;
-    });
-    
-    router.addRoute('accounts', () => {
-        appElement.innerHTML = templates.accounts;
-    });
-    
-    router.addRoute('transactions', () => {
-        appElement.innerHTML = templates.transactions;
-    });
-    
-    router.addRoute('profile', () => {
-        appElement.innerHTML = templates.profile;
-    });
-    
-    //initialize the router
-    router.init();
-
-    
-
-});
-
 function callBackgroundColorChangeEndpoint() {
     fetch('/api/user/changeColor', {
         method: 'GET',
@@ -77,6 +24,39 @@ function callBackgroundColorChangeEndpoint() {
     });
 }
 
+function callLogInUserEndpoint(button) {
+    console.log("login endpoint called");
+    const username = "test1";
+    const password = "testpass1";
+
+    // Include username and password in the query string
+    fetch(`/api/user/logInUser?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
+        method: 'GET', // Ensure the method matches your controller
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to log in');
+        }
+        return response.json(); // Parse the response as JSON
+    })
+    .then(isLoggedIn => {
+        if (isLoggedIn) {
+            console.log("Login successful, navigating to dashboard...");
+            window.location.hash = 'dashboard'; // Change the hash to dashboard
+        } else {
+            console.log("Login failed, staying on the current page.");
+            alert("Incorrect username or password. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while trying to log in. Please try again later.");
+    });
+}
+
 function callCreateNewUserEndpoint() {
     fetch('/api/user/createNewUser'), {
         method: 'POST',
@@ -86,9 +66,90 @@ function callCreateNewUserEndpoint() {
     }
 }
 
-function callLogInUserEndpoint(button) {
-    console.log("login endpoint called")
-    const link = button.nextElementSibling;
-    link.href = `#${link.dataset.page}`;
-    console.log(link.href);
+function getAllConnectedBankAccountsEndpoint() {
+    // Show loading state
+    const accountStack = document.getElementById('connected-account-stack');
+    accountStack.innerHTML = '<div class="loading-state"><p>Loading your accounts...</p></div>';
+    
+    const targetConnectedUserID = "cUtest1"; // Set the targetConnectedUserID dynamically if needed
+    
+    //calls the function in BankAccountController using the /api/bankAccount/getConnectedBankAccounts mapped endpoint
+    //?targetConnectedUserID passes the hard coded userID into the bank account controller function
+    fetch(`/api/bankAccount/getConnectedBankAccounts?targetConnectedUserID=${encodeURIComponent(targetConnectedUserID)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch connected bank accounts');
+      }
+      return response.json();
+    })
+    .then(bankAccounts => {
+      // Clear the loading state
+      accountStack.innerHTML = '';
+      
+      if (bankAccounts.length === 0) {
+        // Display empty state if no accounts
+        accountStack.innerHTML = `
+          <div class="empty-state">
+            <p>No connected bank accounts found.</p>
+            <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">Try Again</button>
+          </div>
+        `;
+        return;
+      }
+      
+      // Create a new list with enhanced styling
+      const ul = document.createElement('ul');
+      ul.className = 'account-list';
+      
+      
+
+      bankAccounts.forEach(bankAccount => {
+        const li = document.createElement('li');
+        li.className = 'account-content';
+        
+        // Format the account details with square card layout
+        li.innerHTML = generateBankAccountHTML(bankAccount);
+        
+        ul.appendChild(li);
+      });
+      
+      accountStack.appendChild(ul);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      accountStack.innerHTML = `
+        <div class="empty-state">
+          <p>An error occurred while fetching your accounts.</p>
+          <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">Try Again</button>
+        </div>
+      `;
+    });
+  }
+  
+  // Initialize when the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    getAllConnectedBankAccountsEndpoint();
+  });
+
+  function generateBankAccountHTML(bankAccount) {
+    return `
+        <div class="account-content">
+            <div class="account-details">
+                <div class="bank-account-name">Bank Account: ${bankAccount.bankAccountName}</div>
+                <div class="bank-account-balance">Current Balance: $${bankAccount.balance.toFixed(2)}</div>
+            </div>
+            <div class="bank-account-actions">
+                <button class="action-btn" onclick="makeTransaction('${bankAccount.bankAccountID}')">Make a Transaction</button>
+                <button class="action-btn" onclick="withdraw('${bankAccount.bankAccountID}')">Withdraw</button>
+            </div>
+        </div>
+    `;
 }
+
+
+
