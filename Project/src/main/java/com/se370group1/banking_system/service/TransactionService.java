@@ -25,6 +25,20 @@ public class TransactionService {
 
      */
     //methods here
+
+    //completing transaction logic in the service layer
+    public boolean validateTransactionAmount(double amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid transaction amount. Must be greater than 0.");
+            return false;
+        }
+        double maxTransactionLimit = 10000.00;
+        if (amount > maxTransactionLimit) {
+            System.out.println("Invalid transaction amount. Your balance of " + amount + " exceeds the transaction limit of 10,000.00.");
+            return false;
+        }
+        return true;
+    }
     public List <TransactionDTO> getTransactions(String connectedUserID) {
         //create list to hold transactions
         List<Transaction> transactionList = transactionRepository.findByConnectedBankAccountID(connectedUserID);
@@ -54,6 +68,13 @@ public class TransactionService {
         //transactions are in a list where last inputted (aka most recent) is at the end
         TransactionDTO mostRecentDTO = dto.get(dto.size() - 1);
         return mostRecentDTO; 
+    }
+
+    public void processTransaction(TransactionDTO t_dto) {
+        //create the pending transaction from controller
+        Transaction pending_transaction = new Transaction(t_dto);
+        //sends to database
+        transactionRepository.save(pending_transaction);
     }
 
 } //end of class
