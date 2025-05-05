@@ -183,10 +183,7 @@ function getAllConnectedBankAccountsEndpoint() {
   
   // Initialize when the page loads
   document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.hash === '#accounts') {
-        getAllConnectedBankAccountsEndpoint();
-    }
-   
+
   });
 
   function generateBankAccountHTML(bankAccount) {
