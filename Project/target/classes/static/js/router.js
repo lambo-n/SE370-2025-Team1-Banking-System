@@ -1,6 +1,47 @@
 //load a template dynamically
 function loadTemplate(templateName) {
     const app = document.getElementById('app');
+    
+    // Define protected templates that require authentication
+    const protectedTemplates = ['dashboard', 'budget', 'profile', 'transactions', 'transactionForm', 'withdrawForm'];
+
+    // Check if the requested template requires authentication
+    if (protectedTemplates.includes(templateName)) {
+        // Verify session before loading protected template
+        fetch('/api/user/sessionStatus', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Session validation failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.isLoggedIn) {
+                // User is authenticated, load the requested template
+                loadRequestedTemplate(templateName);
+            } else {
+                // User is not authenticated, redirect to login
+                
+                window.location.hash = 'login';
+                alert('User not authenticated, redirecting to login...');
+            }
+        })
+        .catch(error => {
+            console.error('Session check error:', error);
+            window.location.hash = 'login';
+        });
+    } else {
+        // Template doesn't require authentication, load it directly
+        loadRequestedTemplate(templateName);
+    }
+}
+
+// Helper function to load the actual template
+function loadRequestedTemplate(templateName) {
+    const app = document.getElementById('app');
     fetch(`/templates/${templateName}.html`)
         .then(response => {
             if (!response.ok) {
@@ -11,7 +52,7 @@ function loadTemplate(templateName) {
         .then(html => {
             app.innerHTML = html;
 
-            //call preloadUserData() when the dashboard template is loaded
+            // Call specific initialization functions for certain templates
             if (templateName === 'accounts') {
                 getAllConnectedBankAccountsEndpoint();
             }

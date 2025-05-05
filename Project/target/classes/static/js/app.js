@@ -11,7 +11,7 @@ function checkSessionStatus() {
     })
     .then(data => {
         if (data.isLoggedIn) {
-            console.log('User is logged in');
+            alert('User is logged in as: ' + data.username);
         } else {
             console.log('User is not logged in');
             window.location.hash = 'login'; // Redirect to login page
@@ -50,12 +50,18 @@ function callBackgroundColorChangeEndpoint() {
 
 function callLogInUserEndpoint(button) {
     console.log("login endpoint called");
-    const username = "test1";
-    const password = "testpass1";
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    // Validate inputs
+    if (!username || !password) {
+        alert("Please enter both username and password");
+        return;
+    }
 
     // Include username and password in the query string
     fetch(`/api/user/logInUser?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
-        method: 'GET', // Ensure the method matches your controller
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -64,12 +70,12 @@ function callLogInUserEndpoint(button) {
         if (!response.ok) {
             throw new Error('Failed to log in');
         }
-        return response.json(); // Parse the response as JSON
+        return response.json();
     })
     .then(isLoggedIn => {
         if (isLoggedIn) {
             console.log("Login successful, navigating to dashboard...");
-            window.location.hash = 'dashboard'; // Change the hash to dashboard
+            window.location.hash = 'dashboard';
         } else {
             console.log("Login failed, staying on the current page.");
             alert("Incorrect username or password. Please try again.");
@@ -78,6 +84,26 @@ function callLogInUserEndpoint(button) {
     .catch(error => {
         console.error('Error:', error);
         alert("An error occurred while trying to log in. Please try again later.");
+    });
+}
+
+function callLogOutUserEndpoint() {
+    console.log("Logout endpoint called");
+
+    fetch('/api/user/logOutUser', {
+        method: 'GET',
+        credentials: 'include' // Include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to log out');
+        }
+        console.log("Logout successful, redirecting to login page...");
+        window.location.hash = 'login'; // Redirect to the login page
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while trying to log out. Please try again later.");
     });
 }
 
@@ -157,7 +183,10 @@ function getAllConnectedBankAccountsEndpoint() {
   
   // Initialize when the page loads
   document.addEventListener('DOMContentLoaded', function() {
-    getAllConnectedBankAccountsEndpoint();
+    if (window.location.hash === '#accounts') {
+        getAllConnectedBankAccountsEndpoint();
+    }
+   
   });
 
   function generateBankAccountHTML(bankAccount) {
@@ -168,11 +197,21 @@ function getAllConnectedBankAccountsEndpoint() {
                 <div class="bank-account-balance">Current Balance: $${bankAccount.balance.toFixed(2)}</div>
             </div>
             <div class="bank-account-actions">
-                <button class="action-btn" onclick="makeTransaction('${bankAccount.bankAccountID}')">Make a Transaction</button>
-                <button class="action-btn" onclick="withdraw('${bankAccount.bankAccountID}')">Withdraw</button>
+                <button class="action-btn" onclick="redirectTransactionForm('${bankAccount.bankAccountID}')">Make a Transaction</button>
+                <button class="action-btn" onclick="redirectWithdrawForm('${bankAccount.bankAccountID}')">Withdraw</button>
             </div>
         </div>
     `;
+}
+
+function redirectTransactionForm(bankAccountID) {
+    // Redirect to the transaction form page with the bank account ID as a query parameter
+    window.location.href = `#transactionForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
+}
+
+function redirectWithdrawForm(bankAccountID) {
+    // Redirect to the withdraw form page with the bank account ID as a query parameter
+    window.location.href = `#withdrawForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }
 
 
