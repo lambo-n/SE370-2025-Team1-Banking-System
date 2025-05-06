@@ -3,10 +3,11 @@
   <h1>Log In to Your Account</h1>
     <div class="login-form">
       <form>
-        <label class="form-label" for="login-username">Username</label>
+        <label id="login-username-label" class="form-label" for="login-username">Username</label>
         <input class="form-input" type="text" id="login-username" name="login-username" placeholder="Enter username" required>
         <br>
-        <label class="form-label" for="login-password">Password</label>
+        <br>
+        <label id="login-password-label" class="form-label" for="login-password">Password</label>
         <input class="form-input" type="password" id="login-password" name="login-password" placeholder="Enter password" required>
       </form>
       <button id="login-button" class="btn" onclick="callLogInUserEndpoint()">Log In</button>
