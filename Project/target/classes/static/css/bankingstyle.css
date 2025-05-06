@@ -94,27 +94,6 @@ nav ul li a:hover {
   box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
 
-#color-change-button {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
-}
-
-#color-change-button:hover {
-  background-color: #c0392b;
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
-}
-
 .hero-text {
   margin: 2rem 0;
   font-size: 1.2rem;
@@ -289,4 +268,58 @@ input:hover {
   margin-bottom: 20px; /* Add spacing between fields */
   padding: 10px;
   font-size: 16px;
+}
+
+#signup-username, #signup-password {
+  background-color:white;
+  border-radius: 35px;
+  border:none;
+  appearance: none;
+  width: 450px;
+  height: 40px;
+  padding: 10px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+}
+#signup-username:hover {
+  border:3px solid rgb(241, 65, 65);
+  transition-duration: .05s;
+}
+#signup-username:focus {
+  border:3px solid rgb(241, 65, 65);
+} 
+/*
+#signup-password {
+  border-radius: 35px;
+  border-color:white;
+  width: 450px;
+  height: 40px;
+  padding: 5px;
+  margin-left: 30px;
+}
+*/
+#signup-password:hover {
+  border:3px solid rgb(81, 152, 240);
+  transition-duration: .05s;
+}
+
+#login-username, #login-password {
+  background-color:white;
+  border-radius: 35px;
+  border:none;
+  appearance: none;
+  width: 350px;
+  height: 40px;
+  padding: 10px;
+  margin-left: 30px;
+  
+}
+
+#login-username {
+margin-bottom: 150px;
+margin-top:30px;
+}
+
+#login-password {
+
 }
