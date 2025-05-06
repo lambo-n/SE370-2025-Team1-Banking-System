@@ -22,32 +22,6 @@ function checkSessionStatus() {
     });
 }
 
-function callBackgroundColorChangeEndpoint() {
-    fetch('/api/user/changeColor', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch the random color');
-        }
-        return response.text(); // Parse the response as plain text (hex color)
-    })
-    .then(hexColor => {
-
-        const color = `#${hexColor}`;
-        
-        //apply color to website background
-        document.body.style.backgroundColor = color;
-        console.log(`Background color changed to: ${color}`);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
 function callLogInUserEndpoint(button) {
     console.log("login endpoint called");
     const username = document.getElementById('login-username').value;
@@ -203,13 +177,10 @@ function getAllConnectedBankAccountsEndpoint() {
 
 function redirectTransactionForm(bankAccountID) {
     // Redirect to the transaction form page with the bank account ID as a query parameter
-    window.location.href = `#transactionForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
+    window.location.hash = `transactionForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }
 
 function redirectWithdrawForm(bankAccountID) {
     // Redirect to the withdraw form page with the bank account ID as a query parameter
-    window.location.href = `#withdrawForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
+    window.location.hash = `withdrawForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }
-
-
-
