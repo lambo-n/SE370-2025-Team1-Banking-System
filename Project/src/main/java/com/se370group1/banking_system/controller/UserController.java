@@ -23,11 +23,6 @@ public class UserController {
         this.userService = userService;
     }
     
-    @GetMapping("/changeColor")
-    public String RequestColorChange(){
-        return userService.ChangeBackgroundColor();
-    }
-
     @GetMapping("/logInUser")
     public Boolean LogInUser(@RequestParam String username, @RequestParam String password, HttpSession session) {
         System.out.printf("Passed username: %s\nPassed password: %s\n", username, password);
@@ -47,26 +42,51 @@ public class UserController {
                 return false;
             }
         } catch (IllegalAccessError illegalAccessError) {
+            System.out.println("Major Error");
             System.out.println(illegalAccessError.getMessage());
             return false;
         }
     }
     @GetMapping("/createNewUser")
-    public void CreateNewUser(){
+    public void CreateNewUser() {
+        String username = "test0";
+        String password = "testpass0";
+        String firstName = "Test";
+        String lastName = "User";
+        String email = "test@mail.com";
+        int phoneNum = 1234567890;
+        int socialSecurityNum = 123456789;
+        String street = "123 Test St";
+        String city = "City";
+        String state = "TS";
+        String zip = "12345";
+
         System.out.println("save new user controller called");
         
-        try 
-        {
-            //TODO: add parameters for CreateNewUser() above, make it so that those arguments are the ones used in the createNewUser() method in userService
-            //attempt new user creation 
-            UserDTO newUser = userService.createNewUser("0", "test0", "testpass0");
-
-            //user successfully created, will not print if userService throws exception
-            System.out.printf("username     \"%s\" saved\n", newUser.getUsername());
+        try {
+            // Combine address components
+            String fullAddress = String.format("%s, %s, %s %s", street, city, state, zip);
+            
+            // Generate a unique userID (you may want to implement a better ID generation strategy)
+            String userID = java.util.UUID.randomUUID().toString();
+            
+            // Combine first and last name
+            String fullName = firstName + " " + lastName;
+            
+            UserDTO newUser = userService.createNewUser(
+                userID, 
+                username, 
+                password, 
+                fullName, 
+                email, 
+                phoneNum, 
+                socialSecurityNum, 
+                fullAddress
+            );
+            
+            System.out.printf("username \"%s\" saved\n", newUser.getUsername());
         }
-        catch (IllegalAccessError illegalAccessError)
-        {
-            //catch user already exists error
+        catch (IllegalAccessError illegalAccessError) {
             System.out.println("Username taken. Please choose a different one.");
         }    
     }

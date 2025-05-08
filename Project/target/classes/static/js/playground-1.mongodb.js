@@ -10,16 +10,9 @@ db.getCollection('Transactions').deleteMany({});
 db.getCollection('Budgets').deleteMany({});
 
 db.getCollection('Users').insertMany([
-  { userID: 'U1', username: 'test1', password: 'testpass1', name: 'Test User1', email: 'test@mail.com', socSecurity: '123-45-6789', phoneNum: '1234567890', address: '123 Test St, Test City, TX 12345'},
-  { userID: 'U2', username: 'test2', password: 'testpass2'},
-  { userID: 'U3', username: 'test3', password: 'testpass3'},
-  { userID: 'U4', username: 'test4', password: 'testpass4'},
-  { userID: 'U5', username: 'test5', password: 'testpass5'},
-  { userID: 'U6', username: 'test6', password: 'testpass6'},
-  { userID: 'U7', username: 'test7', password: 'testpass7'},
-  { userID: 'U8', username: 'test8', password: 'testpass8'},
-  { userID: 'U9', username: 'test9', password: 'testpass9'},
-  { userID: 'U10', username: 'test10', password: 'testpass10'}
+  { userID: 'U1', username: 'test1', password: 'testpass1', name: 'Test User', email: 'test@mail.com', phoneNum: 1234567890, socialSecurityNum: 123456789, address: '123 Test St, Test City, TX'},
+  { userID: 'U2', username: 'test2', password: 'testpass2', name: 'Test User2', email: 'test@mail.com', phoneNum: 1234567890, socialSecurityNum: 123456789, address: '123 Test St, Test City, TX'},
+  { userID: 'U3', username: 'test3', password: 'testpass3', name: 'Test User3', email: 'test@mail.com', phoneNum: 1234567890, socialSecurityNum: 123456789, address: '123 Test St, Test City, TX'},
 ]);
 
 db.getCollection('BankAccounts').insertMany([

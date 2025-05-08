@@ -82,12 +82,51 @@ function callLogOutUserEndpoint() {
 }
 
 function callCreateNewUserEndpoint() {
-    fetch('/api/user/createNewUser'), {
-        method: 'POST',
+    // Get all form values
+    const username = document.getElementById('signup-username').value;
+    const password = document.getElementById('signup-password').value;
+    const firstName = document.getElementById('signup-firstname').value;
+    const lastName = document.getElementById('signup-lastname').value;
+    const email = document.getElementById('signup-email').value;
+    const phoneNum = document.getElementById('signup-phone-number').value;
+    const socialSecurityNum = document.getElementById('signup-ssn').value;
+    const street = document.getElementById('signup-street').value;
+    const city = document.getElementById('signup-city').value;
+    const state = document.getElementById('signup-state').value;
+    const zip = document.getElementById('signup-zip').value;
+
+    // Create query string with all parameters
+    const params = new URLSearchParams({
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        phoneNum: parseInt(phoneNum.replace(/\D/g, '')), // Remove non-digits and parse as integer
+        socialSecurityNum: parseInt(socialSecurityNum.replace(/\D/g, '')), // Remove non-digits and parse as integer
+        street,
+        city,
+        state,
+        zip
+    });
+
+    fetch(`/api/user/createNewUser?${params.toString()}`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
-    }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to create user');
+        }
+        console.log('User created successfully');
+        window.location.hash = 'login'; // Redirect to login page
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while creating the user. Please try again.');
+    });
 }
 
 function getAllConnectedBankAccountsEndpoint() {
