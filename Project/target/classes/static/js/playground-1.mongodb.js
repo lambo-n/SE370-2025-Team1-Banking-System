@@ -10,9 +10,7 @@ db.getCollection('Transactions').deleteMany({});
 db.getCollection('Budgets').deleteMany({});
 
 db.getCollection('Users').insertMany([
-  { userID: 'U1', username: 'test1', password: 'testpass1', name: 'Test User', email: 'test@mail.com', phoneNum: 1234567890, socialSecurityNum: 123456789, address: '123 Test St, Test City, TX'},
-  { userID: 'U2', username: 'test2', password: 'testpass2', name: 'Test User2', email: 'test@mail.com', phoneNum: 1234567890, socialSecurityNum: 123456789, address: '123 Test St, Test City, TX'},
-  { userID: 'U3', username: 'test3', password: 'testpass3', name: 'Test User3', email: 'test@mail.com', phoneNum: 1234567890, socialSecurityNum: 123456789, address: '123 Test St, Test City, TX'},
+  { userID: 'U1', username: 'test1', password: 'testpass1', email: "test@mail.com", phoneNum: 123456789, socialSecurityNum: 123456789, address:"123 St city, CA, 12345"},
 ]);
 
 db.getCollection('BankAccounts').insertMany([
