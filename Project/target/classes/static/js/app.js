@@ -215,8 +215,8 @@ function generateBankAccountHTML(bankAccount) {
                 <div class="bank-account-balance">Current Balance: $${bankAccount.balance.toFixed(2)}</div>
             </div>
             <div class="bank-account-actions">
-                <button class="action-btn" onclick="redirectTransactionForm('${bankAccount.bankAccountID}')">Make a Transaction</button>
-                <button class="action-btn" onclick="redirectWithdrawForm('${bankAccount.bankAccountID}')">Withdraw</button>
+                <button class="action-btn" onclick="redirectTransactionForm('${bankAccount.bankAccountID}')">Manage Bank Account</button>
+                <button class="action-btn" onclick="redirectTransactions('${bankAccount.bankAccountID}')">View Transaction History</button>
             </div>
         </div>
     `;
@@ -227,7 +227,7 @@ function redirectTransactionForm(bankAccountID) {
     window.location.hash = `transactionForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }
 
-function redirectWithdrawForm(bankAccountID) {
+function redirectTransactions(bankAccountID) {
     // Redirect to the withdraw form page with the bank account ID as a query parameter
-    window.location.hash = `withdrawForm.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
+    window.location.hash = `transactions.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }

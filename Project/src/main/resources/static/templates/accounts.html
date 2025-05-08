@@ -7,6 +7,9 @@
     <button class="btn" onclick="getAllConnectedBankAccountsEndpoint()">
       <i class="fas fa-sync-alt"></i> Refresh Accounts
     </button>
+    <a class="btn" href='#' data-page="addAccountForm">
+      <i class="fas fa-tachometer-alt"></i> Connect New Bank Account
+    </a>
     <a class="btn" href='#' data-page="dashboard">
       <i class="fas fa-tachometer-alt"></i> Dashboard
     </a>
@@ -32,9 +35,18 @@
 
   /* Ensure the action bar is visible and positioned correctly */
   #accounts-template .action-bar {
-    flex-shrink: 0; /* Prevent the action bar from shrinking */
-    margin-bottom: 1rem; /* Add spacing below the action bar */
-    z-index: 10; /* Ensure it stays above other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    z-index: 10;
+    flex-wrap: nowrap; /* Prevent buttons from wrapping */
+  }
+
+  .action-bar .btn {
+    flex: 0 0 auto; /* Prevent buttons from growing or shrinking */
+    white-space: nowrap; /* Prevent text wrapping */
   }
 
   /* Allow the account container to grow naturally */
@@ -73,9 +85,10 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 1rem; /* Space between account items */
+    width: 100%; /* Take full width of container */
   }
   
   .account-item {
@@ -116,6 +129,8 @@
   
   /* Style for the account content container */
 .account-content {
+  width: 100%; /* Take full width of the list */
+  margin-bottom: 1rem; /* Add space between items */
   display: flex;
   flex-direction: column; /* Stack details and actions vertically */
   gap: 0.5rem; /* Reduce the gap between details and actions */
@@ -185,12 +200,7 @@
   
   /* Media query for responsive design */
   @media (max-width: 768px) {
-    .account-list {
-      grid-template-columns: 1fr;
-    }
-    
     .account-item {
-      aspect-ratio: auto;
       padding: 1.25rem;
     }
   }
@@ -201,8 +211,14 @@
     }
 
     #accounts-template .action-bar {
-      flex-direction: column; /* Stack buttons vertically */
-      gap: 0.5rem; /* Add spacing between buttons */
+      flex-direction: row; /* Keep buttons in a row even on mobile */
+      justify-content: center;
+      gap: 0.25rem; /* Reduce gap on mobile */
+    }
+
+    .action-bar .btn {
+      font-size: 0.8rem; /* Smaller font on mobile */
+      padding: 0.5rem 0.75rem; /* Smaller padding on mobile */
     }
 
     #accounts-template .account-container {
