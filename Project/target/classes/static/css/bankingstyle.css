@@ -231,46 +231,99 @@ input:hover {
   border:none;
 }
   */
-.signup-inpfield {
-  border: 2px solid gray;
-  border-radius: 15px;
-  width: 90%;
-  height: 50px;
-}
-.signup-inpfield:hover {
-  border-color: rgb(243, 83, 83);
-}
 
 .signup-form {
-  padding:30px;
-  border:3px solid white;
+  padding: 15px;
   background-color: white;
-  border-radius: 10px;
-  text-align:center;
+  border-radius: 15px;
+  text-align: left;
+  width: 90%;
+  max-width: 500px;
+  min-height: 400px;
+  max-height: 90vh;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 95%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  height:30px;
+}
+
+.form-input:hover,
+.form-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+select.form-input {
+  width: 100%;
+  height: 2.5rem;
+  background-color: white;
 }
 
 #create-user-button {
-  margin-top:15px;
-  padding:10px;
-  font-size:20px;
-  width: 150px;
-  height:45px;
-  border: 1px solid white;
-  border-radius:25px;
+  position: sticky;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 200px;
+  margin: 1rem auto;
+  padding: 0.75rem 1.5rem;
 }
 
-#create-user-button:hover {
-  transition-duration: .15s;
-  background-color: #3498db;
-  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-  transform: translateY(-3px);
-  color:white;
+#signup-template {
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
 }
+
+#signup-template h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+#signup-template nav {
+  margin-top: auto;
+  padding: 1rem;
+}
+
+#signup-template nav ul {
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Remove <br> spacing since we're using margin */
+.signup-form br {
+  display: none;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   background-color: white;
   text-align: center;
   border-radius: 25px;
@@ -278,6 +331,10 @@ input:hover {
   width: 400px;
   height: 500px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+.login-form-label {
+  font-size:35px;
+  color: #3498db;
 }
 
 /* Style for input fields */
@@ -289,4 +346,26 @@ input:hover {
   margin-bottom: 20px; /* Add spacing between fields */
   padding: 10px;
   font-size: 16px;
+}
+
+#transaction-form-template {
+  border:none;
+  border-radius:25px;
+  background-color:white;
+  padding:15px;
+  width:700px;
+  height:850px;
+}
+
+
+#transaction-form {
+  color: #3498db;
+  background-color:white;
+  opacity: 0.7;
+  width:650;
+  height:685px;
+  border:3px solid #ce0e0e;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding:15px;
 }
