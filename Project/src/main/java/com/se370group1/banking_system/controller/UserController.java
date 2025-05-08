@@ -48,19 +48,19 @@ public class UserController {
         }
     }
     @GetMapping("/createNewUser")
-    public void CreateNewUser() {
-        String username = "test0";
-        String password = "testpass0";
-        String firstName = "Test";
-        String lastName = "User";
-        String email = "test@mail.com";
-        int phoneNum = 1234567890;
-        int socialSecurityNum = 123456789;
-        String street = "123 Test St";
-        String city = "City";
-        String state = "TS";
-        String zip = "12345";
-
+    public void CreateNewUser(
+        @RequestParam String username,
+        @RequestParam String password, 
+        @RequestParam String firstName,
+        @RequestParam String lastName,
+        @RequestParam String email,
+        @RequestParam int phoneNum,
+        @RequestParam int socialSecurityNum,
+        @RequestParam String street,
+        @RequestParam String city,
+        @RequestParam String state,
+        @RequestParam String zip
+    ) {
         System.out.println("save new user controller called");
         
         try {
