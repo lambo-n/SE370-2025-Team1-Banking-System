@@ -341,7 +341,9 @@ select.form-input {
   height: 500px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-
+#transfer-isActive {
+  display:none;
+}
 .login-form-label {
   font-size:35px;
   color: #3498db;
