@@ -231,3 +231,67 @@ function redirectTransactions(bankAccountID) {
     // Redirect to the withdraw form page with the bank account ID as a query parameter
     window.location.hash = `transactions.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }
+
+function loadTransactions(bankAccountID) {
+    //get transactions container
+    const transactionBody = document.getElementById("transactions-body");
+    transactionsBody.innerHTML = '<tr><td colspan="3">Loading transactions...</td></tr>';
+    fetch(`/api/transaction/getConnectedTransactions?bankAccountID=${encodeURIComponent(bankAccountID)}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include' // Include session cookies
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch transactions');
+        }
+        return response.json();
+    })
+    .then(transactions => {
+        // Clear loading state
+        transactionsBody.innerHTML = '';
+        
+        if (transactions.length === 0) {
+            transactionsBody.innerHTML = '<tr><td colspan="3">No transactions found</td></tr>';
+            return;
+        }
+
+        // Sort transactions by date (most recent first)
+        transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Display only the 15 most recent transactions
+        transactions.slice(0, 15).forEach(transaction => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${transaction.description}</td>
+                <td class="${transaction.amount >= 0 ? 'credit' : 'debit'}">
+                    $${Math.abs(transaction.amount).toFixed(2)}
+                </td>
+                <td>${new Date(transaction.date).toLocaleDateString()}</td>
+            `;
+            transactionsBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        transactionsBody.innerHTML = `
+            <tr>
+                <td colspan="3">
+                    Error loading transactions. 
+                    <button onclick="loadTransactions('${bankAccountID}')">Try Again</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+//this function is for when 'Transfer' input is clicked, more html is added to show accounts that can be available for transfer
+//as well as any additional
+function addSecondAccountHTML() {
+    const hiddenCode = document.getElementById("transfer-isActive");
+    hiddenCode.style.display = hiddenCode.style.display === 'block' ? 'none' : 'block';
+}
+
+

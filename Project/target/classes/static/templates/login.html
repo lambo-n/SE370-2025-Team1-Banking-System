@@ -2,15 +2,16 @@
 <div id="login-template">
   <h1>Log In to Your Account</h1>
     <div class="login-form">
-      <form>
-        <label class="form-label" for="login-username"><h2 class="login-form-label">Username</h2></label>
+      <form id="login-form-tag">
+        <label class="form-label" for="login-username">Username</label>
         <input class="form-input" type="text" id="login-username" name="login-username" placeholder="Enter username" required>
         <br>
-        <label class="form-label" for="login-password"><h2 class="login-form-label">Password</h2></label>
+        <label class="form-label" for="login-password">Password</label>
         <input class="form-input" type="password" id="login-password" name="login-password" placeholder="Enter password" required>
       </form>
       <button id="login-button" class="btn" onclick="callLogInUserEndpoint()">Log In</button>
     </div>
+    
   <nav>
     <ul>
       <li><a href='#' data-page="signup">Don't have an account? Create one here!</a></li>

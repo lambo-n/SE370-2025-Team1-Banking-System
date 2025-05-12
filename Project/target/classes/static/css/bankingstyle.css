@@ -320,8 +320,17 @@ select.form-input {
   display: none;
 }
 
-.login-form {
+#login-template {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+}
+.login-form {
+  display:flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
@@ -331,6 +340,9 @@ select.form-input {
   width: 400px;
   height: 500px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+#transfer-isActive {
+  display:none;
 }
 .login-form-label {
   font-size:35px;
