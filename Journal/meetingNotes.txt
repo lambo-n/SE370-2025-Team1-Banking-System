@@ -1,2 +1,29 @@
-Keeping Trello board up to date with to do's, current tasks and any bugs
+Week 5:
+Created project proposals and discussed as a group different ideas for the upcoming project. Set up a trello board and discussed various forms of communication for the group.
+Identified tasks for each member and task dependencies to set up a clear schedule to progress with the project. Also created estimated deadlines for the tasks. 
 
+Week 6:
+Set up user stories to determine what needs to get done in the project. Estimated efforts for the user stories to see how much time needs to be allocated for each. 
+
+Week 7:
+Set up a tentative schedule and discuss what will get done in each sprint and who will complete what in every sprint. Created product backlog to see a prioritized list of all work items. 
+
+Week 8: SCRUM meeting to discuss the progress made so far, setting up GITHUB and beginning the first sprint. Setting up the backend and planning for the upcoming design.
+
+Week 9: SCRUM meetings to analyze design and build up the backend as well as testing functions and proceeding with the sprint. Lots of testing and risk analysis. 
+
+Week 10:
+SCRUM meeting to review the sprint that we just finished. Discussed the next sprint moving forward. Begin setting up frontend and touching up deposit, withdraw, transfer, and transaction history functions. Testing new functions and risk analysis. 
+
+Week 11:
+SCRUM meeting discussing how we want the display to look on the website. Discussed how the dashboard will look and continued with the sprint. Finished getting our requirements up to date.
+
+Week 12:
+SCRUM meeting adjusted the login process and created user authentication to provide extra security. 
+
+Week 13:
+SCRUM meeting to discuss what has been finished on the front end. Continued progressing with the frontend work and continued testing new backend features. 
+
+Week 14: Reviewed documentation and set time to add to our documentation for changes and future ideas. Continue to work on frontend and backend to add finishing touches and make sure everything runs smoothly through lots of testing. 
+
+Week 15: Finished testing and risk analysis discussed any additional features to be added into our website and completed the project.
