@@ -11,8 +11,8 @@
             <label class="transaction-form-withdraw" for="transaction-withdraw-input">Withdraw</label>
             <input name="transaction-choice"class="transaction-form-withdraw" type="radio" id="transaction-withdraw-input">
             <br>
-            <label class="transaction-form-transfer" for="transaction-transfer-input">Transfer</label>
-            <input name="transaction-choice" class="transaction-form-transfer" onclick="addSecondAccountHTML()" type="radio" id="transaction-transfer-input">
+            <label class="transaction-form-transfer" onclick="addSecondAccountHTML()" for="transaction-transfer-input">Transfer</label>
+            <input name="transaction-choice" class="transaction-form-transfer" type="radio" id="transaction-transfer-input">
             <br>
             <span id="transfer-isActive">
                 <label for="account-dropdown">Target Account</label>
@@ -22,11 +22,11 @@
                     <option value="">Account 3</option>
                     <option value="">Account 4</option>
                 </select>
-                <br>
+                
             </span>
+            <br>
             <label class="transaction-form-transfer" for="transfer-amount-input">Choose transfer amount</label>
             <input name="transaction-form-transfer-amount" type="number" step="any" min="0.1" max="100000.0" id="transfer-amount-input">
-            <br>
             <br>
             <label>Additional Comments:</label>
             <br>
