@@ -1,20 +1,19 @@
 <!-- Sign Up Template-->
 <div id="signup-template">
     <h1>Sign Up to Create Your Account</h1>
-        <div class ="signup-form">
-            <form>
-                <label class="sign-up-label" for="signup-username">Username</label>
-                <input class="signup-inpfield" type="text" id="signup-username" name="signup-username" placeholder="Enter username" required>
-                <br>
-                <label class="sign-up-label" for="signup-password">Password</label>
-                <input type="text" class="signup-inpfield" id="signup-password" name="signup-password" max=12 placeholder="Enter password" required>
-            </form>
-            <button id="create-user-button" onclick="callCreateNewUserEndpoint()">Create User</button>
-        </div>
-    <nav>
-        <ul>
-            <li><a href='#' data-page="login">Already have an account? Log In here!</a></li>
-            <li><a href='#' data-page="frontpage"> Back to Front</a></li>
-        </ul>
-    </nav>
+    <div class="signup-form">
+        <form>
+            <label class="form-label" for="signup-username">Username</label>
+            <input class="signup-inpfield" type="text" id="signup-username" name="signup-username" placeholder="Enter username" required>
+            
+            <label class="form-label" for="signup-password">Password</label>
+            <input class="signup-inpfield" type="password" id="signup-password" name="signup-password" max=12 placeholder="Enter password" required>
+        </form>
+    </div>
+    
+    <div class="button-container">
+        <button id="create-user-button" class="btn" onclick="callCreateNewUserEndpoint()">Create User</button>
+        <a href='#' class="btn" data-page="login">Already have an account?</a>
+        <a href='#' class="btn" data-page="frontpage">Back to Front</a>
+    </div>
 </div>
