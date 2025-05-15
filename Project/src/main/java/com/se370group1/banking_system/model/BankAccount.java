@@ -23,5 +23,6 @@ public class BankAccount {
     public String getBankAccountName() {return this.bankAccountName;}
     public String getConnectedUserID() {return this.connectedUserID;}
     public double getCurrentBalance() {return this.balance;}
+    public void setCurrentBalance(double newBalance) {this.balance = newBalance;}
     
 }

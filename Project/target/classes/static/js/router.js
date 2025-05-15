@@ -42,10 +42,17 @@ function loadTemplate(templateName) {
 // Helper function to load the actual template
 function loadRequestedTemplate(templateName) {
     const app = document.getElementById('app');
-    fetch(`/templates/${templateName}.html`)
+    
+    // Extract base template name and query parameters
+    const [baseTemplateName, queryParams] = templateName.split('?');
+    
+    // Add .html extension if not present
+    const templatePath = baseTemplateName.endsWith('.html') ? baseTemplateName : `${baseTemplateName}.html`;
+    
+    fetch(`/templates/${templatePath}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Failed to load template: ${templateName}`);
+                throw new Error(`Failed to load template: ${templatePath}`);
             }
             return response.text();
         })
@@ -53,13 +60,32 @@ function loadRequestedTemplate(templateName) {
             app.innerHTML = html;
 
             // Call specific initialization functions for certain templates
-            if (templateName === 'accounts') {
+            if (baseTemplateName === 'accounts') {
                 getAllConnectedBankAccountsEndpoint();
+            } else if (baseTemplateName === 'transactionForm.html') {
+                // Initialize form after loading the template
+                setTimeout(() => {
+                    if (queryParams) {
+                        const urlParams = new URLSearchParams(queryParams);
+                        const bankAccountID = urlParams.get('bankAccountID');
+                        
+                        if (bankAccountID) {
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.type = 'hidden';
+                            hiddenInput.id = 'current-bank-account-id';
+                            hiddenInput.value = bankAccountID;
+                            document.getElementById('transaction-form').appendChild(hiddenInput);
+                            
+                            // Populate the account dropdown
+                            populateAccountDropdown();
+                        }
+                    }
+                }, 200);
             }
         })
         .catch(error => {
             console.error(error);
-            app.innerHTML = `<p>Error loading page: ${templateName}</p>`;
+            app.innerHTML = `<p>Error loading page: ${templatePath}</p>`;
         });
 }
 

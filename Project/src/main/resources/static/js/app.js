@@ -231,3 +231,88 @@ function redirectTransactions(bankAccountID) {
     // Redirect to the withdraw form page with the bank account ID as a query parameter
     window.location.hash = `transactions.html?bankAccountID=${encodeURIComponent(bankAccountID)}`;
 }
+
+function populateAccountDropdown() {
+    // Get current account ID from URL
+    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    const currentAccountID = urlParams.get('bankAccountID');
+    
+    // Get all connected accounts
+    fetch('/api/user/sessionStatus', {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(sessionData => {
+        if (!sessionData.isLoggedIn) throw new Error('User not logged in');
+        return fetch(`/api/bankAccount/getConnectedBankAccounts?targetConnectedUserID=cU${sessionData.username}`);
+    })
+    .then(response => response.json())
+    .then(bankAccounts => {
+        const dropdown = document.getElementById('account-dropdown');
+        dropdown.innerHTML = '<option value="" disabled selected>Select target account</option>';
+        
+        // Add all accounts except the current one
+        bankAccounts.forEach(account => {
+            if (account.bankAccountID !== currentAccountID) {
+                const option = document.createElement('option');
+                option.value = account.bankAccountID;
+                option.textContent = `${account.bankAccountName} - $${account.balance.toFixed(2)}`;
+                dropdown.appendChild(option);
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error populating dropdown:', error);
+    });
+}
+
+function confirmTransferEndpoint() {
+    // Get the selected target account ID from dropdown
+    const targetAccountID = document.getElementById('account-dropdown').value;
+    
+    // Get the transfer amount from input
+    const transferAmount = parseFloat(document.getElementById('transfer-amount-input').value);
+
+    // Get the current account ID from the hidden input
+    const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+    const sourceAccountID = urlParams.get('bankAccountID');
+
+    if (!targetAccountID || !transferAmount || !sourceAccountID) {
+        console.error('Missing required transfer information');
+        return;
+    }
+
+    // Create query parameters for the transfer
+    const params = new URLSearchParams({
+        sourceAccountID: sourceAccountID,
+        targetAccountID: targetAccountID,
+        amount: transferAmount
+    });
+
+    // Call the transferFunds endpoint
+    fetch(`/api/bankAccount/transferFunds?${params.toString()}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Transfer failed');
+        }
+        return response.json();
+    })
+    .then(success => {
+        if (success) {
+            alert('Transfer completed successfully!');
+            window.location.hash = 'accounts'; // Redirect back to accounts page
+        } else {
+            alert('Transfer failed. Please check account balances and try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while processing the transfer. Please try again.');
+    });
+}

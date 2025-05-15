@@ -43,4 +43,35 @@ public class BankAccountService {
         return bankAccountDTOList; 
     }
     
+    public Boolean withdrawFunds(String sourceAccountID, double amount) {
+        BankAccount sourceAccount = bankAccountRepository.findById(sourceAccountID)
+            .orElseThrow(() -> new RuntimeException("Source account not found"));
+            
+        if (sourceAccount.getCurrentBalance() >= amount) {
+            sourceAccount.setCurrentBalance(sourceAccount.getCurrentBalance() - amount);
+            bankAccountRepository.save(sourceAccount);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean depositFunds(String targetAccountID, double amount) {
+        BankAccount targetAccount = bankAccountRepository.findById(targetAccountID)
+            .orElseThrow(() -> new RuntimeException("Target account not found"));
+            
+        targetAccount.setCurrentBalance(targetAccount.getCurrentBalance() + amount);
+        bankAccountRepository.save(targetAccount);
+        return true;
+    }
+
+    public Boolean transferFunds(String sourceAccountID, String targetAccountID, double amount) {
+        try {
+            if (withdrawFunds(sourceAccountID, amount)) {
+                return depositFunds(targetAccountID, amount);
+            }
+            return false;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
 }

@@ -30,6 +30,15 @@ public class BankAccountController {
         //return the list back to app.js
         return bankAccountDTOList;
     }
+
+    @GetMapping("/transferFunds")
+    public Boolean transferFunds(
+        @RequestParam String sourceAccountID, 
+        @RequestParam String targetAccountID, 
+        @RequestParam double amount
+    ) {
+        return bankAccountService.transferFunds(sourceAccountID, targetAccountID, amount);
+    }
     
 }
 //controller handles incoming requests and delegates to service layer
