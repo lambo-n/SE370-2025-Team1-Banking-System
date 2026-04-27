@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.se370group1.banking_system.dto.BankAccountDTO;
-import com.se370group1.banking_system.service.BankAccountService;
 import com.se370group1.banking_system.service.BankingFacadeService;
 
 @RestController
@@ -26,11 +25,16 @@ public class BankAccountController {
         return bankingFacade.getAccounts(targetConnectedUserID);
     }
 
-    @GetMapping("/transferFunds")
-    public Boolean transferFunds(
-            @RequestParam String sourceAccountID,
-            @RequestParam String targetAccountID,
-            @RequestParam double amount) {
-        return bankingFacade.transferFunds(sourceAccountID, targetAccountID, amount);
-    }
+@GetMapping("/transferFunds")
+public Boolean transferFunds(
+        @RequestParam String sourceAccountID,
+        @RequestParam String targetAccountID,
+        @RequestParam double amount) {
+
+    return bankingFacade.transferFundsAndRecordTransaction(
+            sourceAccountID,
+            targetAccountID,
+            amount
+    );
+}
 }

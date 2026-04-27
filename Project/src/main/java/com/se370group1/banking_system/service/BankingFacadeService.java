@@ -28,16 +28,17 @@ public class BankingFacadeService {
     private final TransactionService transactionService;
     private final BudgetService budgetService;
 
-    public BankingFacadeService(
-            UserService userService,
-            BankAccountService bankAccountService,
-            TransactionService transactionService,
-            BudgetService budgetService) {
-        this.userService = userService;
-        this.bankAccountService = bankAccountService;
-        this.transactionService = transactionService;
-        this.budgetService = budgetService;
-    }
+public BankingFacadeService(
+        UserService userService,
+        BankAccountService bankAccountService,
+        TransactionService transactionService,
+        BudgetService budgetService) {
+
+    this.userService = userService;
+    this.bankAccountService = bankAccountService;
+    this.transactionService = transactionService;
+    this.budgetService = budgetService;
+}
 
     public Boolean logInUser(String username, String password, HttpSession session) {
     try {
@@ -127,4 +128,33 @@ public String handleTransaction(TransactionDTO transactionDTO) {
     transactionService.processTransaction(transactionDTO);
     return "Transaction successful.";
 }
+
+public Boolean transferFundsAndRecordTransaction(
+        String sourceAccountID,
+        String targetAccountID,
+        double amount) {
+
+    boolean validAmount = transactionService.validateTransactionAmount(amount);
+
+    if (!validAmount) {
+        return false;
+    }
+
+    boolean transferSuccessful = bankAccountService.transferFunds(
+            sourceAccountID,
+            targetAccountID,
+            amount
+    );
+
+    if (transferSuccessful) {
+        System.out.println("Transfer successful. Transaction can be recorded here.");
+    }
+
+    return transferSuccessful;
 }
+public List<BankAccountDTO> getAccounts(String connectedUserID) {
+    return bankAccountService.getConnectedBankAccounts(connectedUserID);
+}
+
+}
+
