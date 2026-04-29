@@ -104,6 +104,19 @@ public Map<String, Object> sessionStatus(HttpSession session) {
     return response;
 }
 
+public Boolean depositFunds(String bankAccountID, double amount) {
+    boolean valid = transactionService.validateTransactionAmount(amount);
+    if (!valid) return false;
+    return bankAccountService.depositFunds(bankAccountID, amount);
+}
+
+public Boolean withdrawFunds(String bankAccountID, double amount) {
+    boolean valid = transactionService.validateTransactionAmount(amount);
+    if (!valid) return false;
+    return bankAccountService.withdrawFunds(bankAccountID, amount);
+}
+
+
 public String dashboard(HttpSession session) {
     Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
 
