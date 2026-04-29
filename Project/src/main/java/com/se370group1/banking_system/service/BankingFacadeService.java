@@ -20,20 +20,21 @@ import jakarta.servlet.http.HttpSession;
 import com.se370group1.banking_system.dto.TransactionDTO;
 
 
+
 @Service
 public class BankingFacadeService {
-
+    
     private final UserService userService;
     private final BankAccountService bankAccountService;
     private final TransactionService transactionService;
     private final BudgetService budgetService;
 
-public BankingFacadeService(
+    public BankingFacadeService(
         UserService userService,
         BankAccountService bankAccountService,
         TransactionService transactionService,
         BudgetService budgetService) {
-
+            
     this.userService = userService;
     this.bankAccountService = bankAccountService;
     this.transactionService = transactionService;
@@ -47,6 +48,7 @@ public BankingFacadeService(
         if (correctLogin) {
             session.setAttribute("username", username);
             session.setAttribute("isLoggedIn", true);
+            System.out.println("BankingFacadeService initialized with UserService, BankAccountService, TransactionService, and BudgetService.");
             return true;
         }
 
