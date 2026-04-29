@@ -9,7 +9,7 @@ import com.se370group1.banking_system.repository.BudgetRepository;
 public class BudgetService {
     @Autowired
     private final BudgetRepository budgetRepository;
-
+    
     public BudgetService(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
     }

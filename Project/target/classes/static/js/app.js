@@ -217,7 +217,7 @@ function generateBankAccountHTML(bankAccount) {
             <div class="bank-account-actions">
                 <button class="action-btn" onclick="redirectToDepositForm('${bankAccount.bankAccountID}')">Deposit Funds</button>
                 <button class="action-btn" onclick="redirectToWithdrawForm('${bankAccount.bankAccountID}')">Withdraw Funds</button>
-                <button class="action-btn" onclick="redirectTransactionForm('${bankAccount.bankAccountID}')">Manage Bank Account</button>
+                <button class="action-btn" onclick="redirectTransactionForm('${bankAccount.bankAccountID}')">Transfer Funds</button>
                 <button class="action-btn" onclick="redirectTransactions('${bankAccount.bankAccountID}')">View Transaction History</button>
             </div>
         </div>
