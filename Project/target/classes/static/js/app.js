@@ -230,6 +230,8 @@ function redirectTransactionForm(bankAccountID) {
 function getDepositAmount() {
     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
     const bankAccountID = urlParams.get('bankAccountID');
+
+
     const depositAmount = parseFloat(document.getElementById('depositAmount').value);
     
     if (!depositAmount || depositAmount <= 0) {
@@ -239,6 +241,7 @@ function getDepositAmount() {
 
     fetch(`/api/bankAccount/depositFunds?bankAccountID=${encodeURIComponent(bankAccountID)}&amount=${depositAmount}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -277,6 +280,7 @@ function getWithdrawAmount() {
 
     fetch(`/api/bankAccount/withdrawFunds?bankAccountID=${encodeURIComponent(bankAccountID)}&amount=${withdrawAmount}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -321,7 +325,9 @@ function populateAccountDropdown() {
     // Get current account ID from URL
     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
     const currentAccountID = urlParams.get('bankAccountID');
-    
+    console.log("hash:", window.location.hash);
+    console.log("bankAccountID:", bankAccountID);
+
     // Get all connected accounts
     fetch('/api/user/sessionStatus', {
         method: 'GET',
