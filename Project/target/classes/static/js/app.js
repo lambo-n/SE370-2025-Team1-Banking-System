@@ -230,8 +230,7 @@ function redirectTransactionForm(bankAccountID) {
 function getDepositAmount() {
     const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
     const bankAccountID = urlParams.get('bankAccountID');
-    console.log("hash:", window.location.hash);
-    console.log("bankAccountID:", bankAccountID);
+
 
     const depositAmount = parseFloat(document.getElementById('depositAmount').value);
     
